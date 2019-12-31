@@ -11,7 +11,7 @@ const merakiNetworkId = projectEnv.parsed.MERAKI_NETWORK_ID;
 //return getMerakiClient(merakiNetworkId,merakiApiKey,'192.168.1.107').then(console.log);
 
 
-const controller = new Botkit({debug:true,token:slackToken});
+const controller = new Botkit({debug:true,adapterConfig:{appId:slackToken}});
 
 // START: Load Slack token from file.
 if (!slackToken) {
