@@ -83,14 +83,17 @@ if (process.env.CMS_URI) {
 //Once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(() => {
 
-    // load traditional developer-created local custom feature modules
+    /* 
+      load traditional developer-created local custom feature modules
+      Not used 
+    */
     controller.loadModules(__dirname + '/features');
 
     /* catch-all that uses the CMS to trigger dialogs */
     if (controller.plugins.cms) {
         controller.on('message,direct_message', async (bot, message) => {
             let results = false;
-            results = await controller.plugins.cms.testTrigger(bot, `Char ${message}`);
+            results = await controller.plugins.cms.testTrigger(bot, message);
 
             if (results !== false) {
                 // do not continue middleware!
@@ -105,9 +108,18 @@ controller.ready(() => {
         //check if it's the right user using info.user.name or info.user.id
         return info.user.name;
       });
-        return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${userData.user.profile.display_name_normalized}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userData.user.profile.display_name_normalized}. And we will do anything to alleviate that pain. :smile_cat:`);
+        return  bot.reply(message, `noOne's are not born into this world fumbling for meaning, ${userData.user.profile.display_name_normalized}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userData.user.profile.display_name_normalized}. And we will do anything to alleviate that pain. :smile_cat:`);
       });
-    
+    controller.on('message', async(bot, message) => {
+        // do stuff
+        bot.reply(message, 'message')
+      });
+
+    controller.on('message.channels', async(bot, message) => {
+      // do stuff
+      bot.reply(message, 'message.channels')
+      });
+
     controller.hears(
       new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
