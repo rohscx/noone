@@ -90,7 +90,7 @@ controller.hears(
     });
    })
     console.log(JSON.stringify(userName,null,'\t'), typeof(userName))
-    return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${JSON}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
+    return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${userName}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
   });
 
 controller.hears(
