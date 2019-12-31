@@ -37,6 +37,14 @@ controller.hears(
   })
 
   controller.hears(
+    ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      return  bot.reply(message, asString) ;
+    })
+
+  controller.hears(
     ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
@@ -44,13 +52,6 @@ controller.hears(
       return  bot.reply(message, asString) ;
     })
 
-  controller.hears(
-    ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
-    async function (bot, message) { 
-      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      return  bot.reply(message, asString) ;
-    })
 
   controller.hears(
     ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
