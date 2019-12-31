@@ -2,6 +2,7 @@ const projectEnv = require('dotenv').config();
 const Botkit = require('botkit')
 const fs = require('fs'); // NEW: Add this require (for loading from files).
 const getMerakiClients = require('./lib/getMerakiClients.js');
+const getMerakiClientsDetail = require('./lib/getMerakiClientsDetail.js');
 const getMerakiClient = require('./lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('./lib/getMerakiClientsOnline.js');
 const slackToken = projectEnv.parsed.SLACK_TOKEN;
@@ -44,6 +45,14 @@ controller.hears(
     })
 
   controller.hears(
+    ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      return  bot.reply(message, asString) ;
+    })
+
+  controller.hears(
     ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
@@ -53,7 +62,7 @@ controller.hears(
 
   controller.hears(
     ['help'], ['direct_message', 'direct_mention', 'mention'],
-    function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, iPv4 Lookup') })
+    function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup') })
     
   controller.hears(
     ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
