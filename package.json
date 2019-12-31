@@ -1,0 +1,26 @@
+{
+  "name": "noone",
+  "version": "1.0.0",
+  "description": "Meraki Slack bot",
+  "main": "app.js",
+  "dependencies": {
+    "botkit": "^4.6.1",
+    "dotenv": "^8.2.0",
+    "nodeutilz": "^1.1.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohscx/noone.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rohscx/noone/issues"
+  },
+  "homepage": "https://github.com/rohscx/noone#readme"
+}
