@@ -90,7 +90,7 @@ controller.ready(() => {
     if (controller.plugins.cms) {
         controller.on('message,direct_message', async (bot, message) => {
             let results = false;
-            results = await controller.plugins.cms.testTrigger(bot, message);
+            results = await controller.plugins.cms.testTrigger(bot, `Char ${message}`);
 
             if (results !== false) {
                 // do not continue middleware!
