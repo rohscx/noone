@@ -1,27 +1,22 @@
 {
-  "name": "noone",
+  "name": "botkit-noone",
   "version": "1.0.0",
-  "description": "Meraki Slack bot",
+  "description": "",
   "main": "app.js",
-  "dependencies": {
-    "botkit": "0.7.0",
-    "dotenv": "^8.2.0",
-    "nodeutilz": "^1.1.0",
-    "request": "^2.88.0"
-  },
-  "devDependencies": {},
   "scripts": {
-    "start": "node app.js",
+    "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rohscx/noone.git"
+  "dependencies": {
+    "botbuilder-adapter-slack": "^1.0.7",
+    "botbuilder-storage-mongodb": "^0.9.5",
+    "botkit": "^4.6.0",
+    "botkit-plugin-cms": "^1.0.3",
+    "dotenv": "^7.0.0",
+    "nodeutilz": "^1.1.0"
   },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rohscx/noone/issues"
-  },
-  "homepage": "https://github.com/rohscx/noone#readme"
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  }
 }
