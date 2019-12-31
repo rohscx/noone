@@ -18,7 +18,8 @@ const getMerakiClient = require('./lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('./lib/getMerakiClientsOnline.js');
 // Load process.env values from .env file
 require('dotenv').config();
-
+// Package.json
+const pjson = require('./package.json');
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
@@ -98,54 +99,54 @@ controller.ready(() => {
     }
     controller.hears(
       ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'Meow. :smile_cat:') })
+      function (bot, message) { bot.reply(message, 'noOnes are not born into this world fumbling for meaning, Dave! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, Dave. And we will do anything to alleviate that pain. :smile_cat:') })
   
-  controller.hears(
-      new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-          const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
+    controller.hears(
+        new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
+        async function (bot, message) { 
+            const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
+            const asString = JSON.stringify(data,null,'\t');
+            return  bot.reply(message, asString) ;
+        })
+  
+    controller.hears(
+        ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
+        async function (bot, message) { 
+          const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
           const asString = JSON.stringify(data,null,'\t');
           return  bot.reply(message, asString) ;
-  })
+        })
   
-  controller.hears(
-      ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      return  bot.reply(message, asString) ;
-      })
+    controller.hears(
+        ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
+        async function (bot, message) { 
+          const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+          const asString = JSON.stringify(data,null,'\t');
+          return  bot.reply(message, asString) ;
+        })
   
-  controller.hears(
-      ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      return  bot.reply(message, asString) ;
-      })
+    controller.hears(
+        ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
+        async function (bot, message) { 
+          const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
+          const asString = JSON.stringify(data,null,'\t');
+          return  bot.reply(message, asString) ;
+        })
   
-  controller.hears(
-      ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      return  bot.reply(message, asString) ;
-      })
-  
-  controller.hears(
+    controller.hears(
       ['help'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup') })
+      function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup, Version') })
       
-  controller.hears(
-      ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') })
-  
-  controller.hears(
-  ['version'], ['direct_message', 'direct_mention', 'mention'],
-  function (bot, message) { 
-      const {version,botkit} = pjson;
-      return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`) }
-      )
+    controller.hears(
+        ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
+        function (bot, message) { bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') })
+    
+    controller.hears(
+      ['version'], ['direct_message', 'direct_mention', 'mention'],
+      function (bot, message) { 
+          const {version,botkit} = pjson;
+          return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`) 
+        })
 });
 
 
