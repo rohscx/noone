@@ -22,14 +22,15 @@ controller
     }
   })
 
+  //f.search(new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/)) != -1
 controller.hears(
   ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
   function (bot, message) { bot.reply(message, 'Meow. :smile_cat:') })
 
 controller.hears(
-  ['clients'], ['direct_message', 'direct_mention', 'mention'],
+  new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
   async function (bot, message) { 
-    const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+    const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message);
     const asString = JSON.stringify(data,null,'\t');
     return  bot.reply(message, asString) ;
   })
