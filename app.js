@@ -100,11 +100,14 @@ controller.ready(() => {
     controller.hears(
       ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
-       const userName = await bot.api.users.info({user: message.user}, function(err, info){
+       const userName = await new Promise((resolve) => {
+        bot.api.users.info({user: message.user}, function(err, info){
           //check if it's the right user using info.user.name or info.user.id
-          return info.user.name
+          resolve(info.user.name);
         });
-        return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${userName}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
+       })
+        console.log(JSON.stringify(userName,null,'\t'), typeof(userName))
+        return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${JSON}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
       });
   
     controller.hears(
