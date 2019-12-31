@@ -57,11 +57,11 @@ const adapter = new SlackAdapter({
     getBotUserByTeam: getBotUserByTeam,
 });
 
-// // Use SlackEventMiddleware to emit events that match their original Slack event types.
-// adapter.use(new SlackEventMiddleware());
+// Use SlackEventMiddleware to emit events that match their original Slack event types.
+adapter.use(new SlackEventMiddleware());
 
-// // Use SlackMessageType middleware to further classify messages as direct_message, direct_mention, or mention
-// adapter.use(new SlackMessageTypeMiddleware());
+// Use SlackMessageType middleware to further classify messages as direct_message, direct_mention, or mention
+adapter.use(new SlackMessageTypeMiddleware());
 
 
 const controller = new Botkit({
@@ -139,26 +139,26 @@ controller.hears(
     const {version,botkit} = pjson;
     return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
   });
-// Once the bot has booted up its internal services, you can use them to do stuff.
-// controller.ready(() => {
+//Once the bot has booted up its internal services, you can use them to do stuff.
+controller.ready(() => {
 
-//     // load traditional developer-created local custom feature modules
-//     controller.loadModules(__dirname + '/features');
+    // load traditional developer-created local custom feature modules
+    controller.loadModules(__dirname + '/features');
 
-//     /* catch-all that uses the CMS to trigger dialogs */
-//     // if (controller.plugins.cms) {
-//     //     controller.on('message,direct_message', async (bot, message) => {
-//     //         let results = false;
-//     //         results = await controller.plugins.cms.testTrigger(bot, message);
+    /* catch-all that uses the CMS to trigger dialogs */
+    if (controller.plugins.cms) {
+        controller.on('message,direct_message', async (bot, message) => {
+            let results = false;
+            results = await controller.plugins.cms.testTrigger(bot, message);
 
-//     //         if (results !== false) {
-//     //             // do not continue middleware!
-//     //             return false;
-//     //         }
-//     //     });
-//     // }
+            if (results !== false) {
+                // do not continue middleware!
+                return false;
+            }
+        });
+    }
     
-// });
+});
 
 
 
