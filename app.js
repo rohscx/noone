@@ -100,9 +100,9 @@ controller.ready(() => {
     controller.hears(
       ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
       function (bot, message) { 
-        bot.api.users.info({user: message.user}, function(err, info){
+       return bot.api.users.info({user: message.user}, function(err, info){
           //check if it's the right user using info.user.name or info.user.id
-          bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${info.user.name}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${info.user.name}. And we will do anything to alleviate that pain. :smile_cat:`);
+         return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${info.user.name}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${info.user.name}. And we will do anything to alleviate that pain. :smile_cat:`);
         })
       })
   
