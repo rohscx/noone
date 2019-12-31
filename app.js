@@ -46,7 +46,7 @@ controller.hears(
   controller.hears(
     ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
       return  bot.reply(message, asString) ;
     })
