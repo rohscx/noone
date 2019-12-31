@@ -119,6 +119,11 @@ controller.ready(() => {
       // do stuff
       bot.reply(message, 'message.channels')
       });
+    
+    controller.on('message.im', async(bot, message) => {
+      // do stuff
+      bot.reply(message, 'message.im')
+      });
 
     controller.hears(
       new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
