@@ -79,84 +79,86 @@ if (process.env.CMS_URI) {
     }));
 }
 
+
+controller.hears(
+  ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
+  async function (bot, message) { 
+   const userName = await new Promise((resolve) => {
+    bot.api.users.info({user: message.user}, function(err, info){
+      //check if it's the right user using info.user.name or info.user.id
+      resolve(info.user.name);
+    });
+   })
+    console.log(JSON.stringify(userName,null,'\t'), typeof(userName))
+    return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${JSON}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
+  });
+
+controller.hears(
+  new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
+  async function (bot, message) { 
+    const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
+    const asString = JSON.stringify(data,null,'\t');
+    return  bot.reply(message, asString);
+  });
+
+controller.hears(
+  ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
+  async function (bot, message) { 
+    const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
+    const asString = JSON.stringify(data,null,'\t');
+    return  bot.reply(message, asString);
+  })
+
+controller.hears(
+  ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
+  async function (bot, message) { 
+    const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+    const asString = JSON.stringify(data,null,'\t');
+    return  bot.reply(message, asString);
+  });
+
+controller.hears(
+  ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
+  async function (bot, message) { 
+    const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
+    const asString = JSON.stringify(data,null,'\t');
+    return  bot.reply(message, asString);
+  });
+
+controller.hears(
+  ['help'], ['direct_message', 'direct_mention', 'mention'],
+  function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup, Version') });
+  
+controller.hears(
+  ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
+  function (bot, message) { bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') });
+
+controller.hears(
+  ['version'], ['direct_message', 'direct_mention', 'mention'],
+  function (bot, message) { 
+    const {version,botkit} = pjson;
+    return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
+  });
 // Once the bot has booted up its internal services, you can use them to do stuff.
-controller.ready(() => {
+// controller.ready(() => {
 
-    // load traditional developer-created local custom feature modules
-    controller.loadModules(__dirname + '/features');
+//     // load traditional developer-created local custom feature modules
+//     controller.loadModules(__dirname + '/features');
 
-    /* catch-all that uses the CMS to trigger dialogs */
-    // if (controller.plugins.cms) {
-    //     controller.on('message,direct_message', async (bot, message) => {
-    //         let results = false;
-    //         results = await controller.plugins.cms.testTrigger(bot, message);
+//     /* catch-all that uses the CMS to trigger dialogs */
+//     // if (controller.plugins.cms) {
+//     //     controller.on('message,direct_message', async (bot, message) => {
+//     //         let results = false;
+//     //         results = await controller.plugins.cms.testTrigger(bot, message);
 
-    //         if (results !== false) {
-    //             // do not continue middleware!
-    //             return false;
-    //         }
-    //     });
-    // }
-    controller.hears(
-      ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-       const userName = await new Promise((resolve) => {
-        bot.api.users.info({user: message.user}, function(err, info){
-          //check if it's the right user using info.user.name or info.user.id
-          resolve(info.user.name);
-        });
-       })
-        console.log(JSON.stringify(userName,null,'\t'), typeof(userName))
-        return  bot.reply(message, `noOnes are not born into this world fumbling for meaning, ${JSON}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userName}. And we will do anything to alleviate that pain. :smile_cat:`);
-      });
-  
-    controller.hears(
-      new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-        const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
-        const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
-      });
-  
-    controller.hears(
-      ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-        const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
-        const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
-      })
-  
-    controller.hears(
-      ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-        const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-        const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
-      });
-  
-    controller.hears(
-      ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
-      async function (bot, message) { 
-        const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-        const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
-      });
-  
-    controller.hears(
-      ['help'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup, Version') });
-      
-    controller.hears(
-      ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') });
+//     //         if (results !== false) {
+//     //             // do not continue middleware!
+//     //             return false;
+//     //         }
+//     //     });
+//     // }
     
-    controller.hears(
-      ['version'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { 
-        const {version,botkit} = pjson;
-        return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
-      });
-});
+// });
 
 
 
