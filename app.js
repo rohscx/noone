@@ -112,17 +112,17 @@ controller.ready(() => {
       });
     controller.on('message', async(bot, message) => {
         // do stuff
-        bot.reply(message, 'message')
+        await bot.reply(message, 'message')
       });
 
     controller.on('message.channels', async(bot, message) => {
       // do stuff
-      bot.reply(message, 'message.channels')
+      await bot.reply(message, 'message.channels')
       });
     
     controller.on('message.im', async(bot, message) => {
       // do stuff
-      bot.reply(message, 'message.im')
+      await bot.reply(message, 'message.im')
       });
 
     controller.hears(
@@ -130,7 +130,7 @@ controller.ready(() => {
       async function (bot, message) { 
         const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
         const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
+        await bot.reply(message, asString);
       });
     
     controller.hears(
@@ -138,7 +138,7 @@ controller.ready(() => {
       async function (bot, message) { 
         const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
+        await bot.reply(message, asString);
       })
     
     controller.hears(
@@ -146,7 +146,7 @@ controller.ready(() => {
       async function (bot, message) { 
         const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
+        await bot.reply(message, asString);
       });
     
     controller.hears(
@@ -154,22 +154,22 @@ controller.ready(() => {
       async function (bot, message) { 
         const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');
-        return  bot.reply(message, asString);
+        await bot.reply(message, asString);
       });
     
     controller.hears(
       ['help'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup, Version') });
+      async function (bot, message) { await bot.reply(message, 'I can help with the following questions: online clients, all clients, all clients detail, iPv4 Lookup, Version') });
       
     controller.hears(
       ['iPv4 Lookup','iPv4', 'Lookup', 'look up', 'look-up'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') });
+      async function (bot, message) { await bot.reply(message, 'Sure, just Direct Message me an iPv4 Address') });
     
     controller.hears(
       ['version'], ['direct_message', 'direct_mention', 'mention'],
-      function (bot, message) { 
+      async function (bot, message) { 
         const {version,botkit} = pjson;
-        return bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
+        await bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
       });
     
 });
