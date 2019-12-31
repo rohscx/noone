@@ -30,7 +30,7 @@ controller.hears(
 controller.hears(
   new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
   async function (bot, message) { 
-    const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message);
+    const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.match);
     const asString = JSON.stringify(data,null,'\t');
     return  bot.reply(message, asString) ;
   })
