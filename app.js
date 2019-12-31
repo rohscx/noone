@@ -57,11 +57,11 @@ const adapter = new SlackAdapter({
     getBotUserByTeam: getBotUserByTeam,
 });
 
-// Use SlackEventMiddleware to emit events that match their original Slack event types.
-adapter.use(new SlackEventMiddleware());
+// // Use SlackEventMiddleware to emit events that match their original Slack event types.
+// adapter.use(new SlackEventMiddleware());
 
-// Use SlackMessageType middleware to further classify messages as direct_message, direct_mention, or mention
-adapter.use(new SlackMessageTypeMiddleware());
+// // Use SlackMessageType middleware to further classify messages as direct_message, direct_mention, or mention
+// adapter.use(new SlackMessageTypeMiddleware());
 
 
 const controller = new Botkit({
