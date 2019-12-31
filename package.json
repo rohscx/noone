@@ -4,7 +4,7 @@
   "description": "Meraki Slack bot",
   "main": "app.js",
   "dependencies": {
-    "botkit": "^4.6.1",
+    "botkit": "0.7.0",
     "dotenv": "^8.2.0",
     "nodeutilz": "^1.1.0",
     "request": "^2.88.0"
