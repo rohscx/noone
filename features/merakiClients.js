@@ -19,9 +19,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       } else {
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       }
     });
   
@@ -32,9 +32,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       } else {
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       }
       
     })
@@ -46,9 +46,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       } else {
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       }
     });
   
@@ -59,9 +59,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       } else {
-        await bot.reply(message, asString);
+        await bot.replyWithTyping(message, asString);
       }
     });
 
@@ -72,9 +72,9 @@ module.exports = function(controller) {
       const count = data.length;
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} clients are online`);
+        await bot.replyWithTyping(message, `${count} clients are online`);
       } else {
-        await bot.reply(message, `${count} clients are online`);
+        await bot.replyWithTyping(message, `${count} clients are online`);
       }
       
     });
@@ -84,7 +84,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
-      await bot.reply(message, `${count} wired clients are online`);
+      await bot.replyWithTyping(message, `${count} wired clients are online`);
     });
 
   controller.hears(
@@ -94,9 +94,9 @@ module.exports = function(controller) {
       const count = data.length;
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.replyWithTyping(message, `${count} wireless clients are online`);
       } else {
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.replyWithTyping(message, `${count} wireless clients are online`);
       }
       
     });
@@ -106,9 +106,9 @@ module.exports = function(controller) {
     async function (bot, message) { 
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, 'Sure, just Direct Message me an iPv4 Address'); 
+        await bot.replyWithTyping(message, 'Sure, just Direct Message me an iPv4 Address'); 
       } else {
-        await bot.reply(message, 'Sure, just Direct Message me an iPv4 Address'); 
+        await bot.replyWithTyping(message, 'Sure, just Direct Message me an iPv4 Address'); 
       }
     });
 }
