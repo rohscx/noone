@@ -4,13 +4,14 @@ const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 const merakiGatwayRouter = process.env.MERAKI_GATEWAY_SN;
+const publicTestIp = process.env.MERAKI_INTERNET_TEST_IP;
 
 module.exports = function(controller) {
 
   controller.hears(
-    ['vpn logs'], ['direct_message', 'direct_mention', 'mention'],
+    ['internet connection', 'internet health', 'internet connection'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
+      const data = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp);
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
