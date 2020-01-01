@@ -3,8 +3,8 @@ const getMerakiClients = require('../lib/getMerakiClients.js');
 const getMerakiClientsDetail = require('../lib/getMerakiClientsDetail.js');
 const getMerakiClient = require('../lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('../lib/getMerakiClientsOnline.js');
-const getMerakiClientsOnlineWired = require('../lib/getMerakiClientsWired.js');
-const getMerakiClientsOnlineWireless = require('../lib/getMerakiClientsWireless.js');
+const getMerakiClientsOnlineWired = require('../lib/getMerakiClientsOnlineWired.js');
+const getMerakiClientsOnlineWireless = require('../lib/getMerakiClientsOnlineWireless.js');
 require('dotenv').config();
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
