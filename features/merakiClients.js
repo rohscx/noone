@@ -21,7 +21,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['all client detail', 'all clients detail'], ['direct_message', 'direct_mention', 'mention'],
+    ['show all client details','show all client detail', 'show all clients detailed'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -29,7 +29,7 @@ module.exports = function(controller) {
     })
   
   controller.hears(
-    ['all client', 'all clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['show all client', 'show all clients', 'show me all clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -37,7 +37,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['online clients', 'clients online'], ['direct_message', 'direct_mention', 'mention'],
+    ['show online clients', 'show clients online','show all clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -45,7 +45,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many online', 'how many clients are online'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many online', 'how many clients','how many users'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const count = data.length;
@@ -53,7 +53,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many wired online', 'how many wired clients are online'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wired online', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
@@ -61,7 +61,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many wireless online', 'how many wireless clients are online'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wireless users', 'how many wireless clients', 'who many wifi clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = data.length;

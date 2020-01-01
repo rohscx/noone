@@ -10,8 +10,8 @@ module.exports = function(controller) {
     ['vpn logs'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
-      console.log(data)
-      await bot.reply(message, data);
+      const asString = JSON.stringify(data);
+      await bot.reply(message, asString);
     });
 
 }
