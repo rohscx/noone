@@ -17,7 +17,13 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(data,null,'\t');
-      await bot.reply(message, asString);
+      console.log(JSON.stringify(message,null,'\t'),message.type)
+      if (message.type === "direct_mention") {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, asString);
+      } else {
+        await bot.reply(message, asString);
+      }
     });
   
   controller.hears(
@@ -53,7 +59,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many wired online', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wired', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
@@ -61,7 +67,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many wireless users', 'how many wireless clients', 'who many wifi clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wireless', 'how many wireless', 'who many wifi'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = data.length;
