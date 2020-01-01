@@ -83,21 +83,6 @@ if (process.env.CMS_URI) {
 //Once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(() => {
 
-  controller.on('message_received', async(bot, message) => {
-    // do stuff
-    await bot.reply(message, 'message_received')
-  });
-
-  controller.on('message.channels', async(bot, message) => {
-    // do stuff
-    await bot.reply(message, 'message.channels')
-    });
-
-  controller.on('message.im', async(bot, message) => {
-    // do stuff
-    await bot.reply(message, 'message.im')
-    });
-
   controller.hears(
     ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
@@ -154,6 +139,11 @@ controller.ready(() => {
       const {version,botkit} = pjson;
       await bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
     });
+
+    controller.on('message', async(bot, message) => {
+      // do stuff
+      await bot.reply(message, 'did you say something?')
+      });
 
     /* 
       load traditional developer-created local custom feature modules
