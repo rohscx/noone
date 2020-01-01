@@ -5,7 +5,10 @@ const getMerakiClient = require('../lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('../lib/getMerakiClientsOnline.js');
 const getMerakiClientsWired = require('../lib/getMerakiClientsWired.js');
 const getMerakiClientsWireless = require('../lib/getMerakiClientsWireless.js');
+require('dotenv').config();
 
+const merakiApiKey = process.env.MERAKI_API_KEY;
+const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 
 module.exports = function(controller) {
 

@@ -13,11 +13,6 @@ const { SlackAdapter, SlackMessageTypeMiddleware, SlackEventMiddleware } = requi
 //const { MongoDbStorage } = require('botbuilder-storage-mongodb');
 // Load process.env values from .env file
 require('dotenv').config();
-// Package.json
-const pjson = require('./package.json');
-
-const merakiApiKey = process.env.MERAKI_API_KEY;
-const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 
 
 let storage = null;
