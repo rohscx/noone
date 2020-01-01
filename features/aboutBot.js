@@ -1,5 +1,5 @@
 // Package.json
-const pjson = require('./package.json');
+const pjson = require('../package.json');
 
 module.exports = function(controller) {
     controller.hears(
