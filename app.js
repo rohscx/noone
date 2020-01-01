@@ -140,10 +140,17 @@ controller.ready(() => {
       await bot.reply(message, `App Version ${version} BotKit Version ${botkit}`);
     });
 
-    controller.on('message', async(bot, message) => {
-      // do stuff
-      await bot.reply(message, 'did you say something?')
-      });
+  controller.hears(
+    '.*', 'message',
+    async function (bot, message) { 
+      const {version,botkit} = pjson;
+      await bot.reply(message, `hearsdid you say something?`);
+    });
+
+  controller.on('message', async(bot, message) => {
+    // do stuff
+    await bot.reply(message, 'did you say something?')
+    });
 
     /* 
       load traditional developer-created local custom feature modules
