@@ -7,8 +7,8 @@ module.exports = function(controller) {
     iPv4 Lookup
     show vpn logs
     determine how many wired clients are online
-    detemine how many wireless clients are online
-    internet connection helth
+    determine how many wireless clients are online
+    internet connection health
     `;
     controller.hears(
         ['help'], ['direct_message', 'direct_mention', 'mention'],
