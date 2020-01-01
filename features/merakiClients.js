@@ -3,8 +3,8 @@ const getMerakiClients = require('../lib/getMerakiClients.js');
 const getMerakiClientsDetail = require('../lib/getMerakiClientsDetail.js');
 const getMerakiClient = require('../lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('../lib/getMerakiClientsOnline.js');
-const getMerakiClientsWired = require('../lib/getMerakiClientsWired.js');
-const getMerakiClientsWireless = require('../lib/getMerakiClientsWireless.js');
+const getMerakiClientsOnlineWired = require('../lib/getMerakiClientsWired.js');
+const getMerakiClientsOnlineWireless = require('../lib/getMerakiClientsWireless.js');
 require('dotenv').config();
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
@@ -55,7 +55,7 @@ module.exports = function(controller) {
   controller.hears(
     ['how many wired online', 'how many wired clients are online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiClientsWired(merakiNetworkId,merakiApiKey);
+      const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
       await bot.reply(message, `${count} wired clients are online`);
     });
@@ -63,7 +63,7 @@ module.exports = function(controller) {
   controller.hears(
     ['how many wireless online', 'how many wireless clients are online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiClientsWireless(merakiNetworkId,merakiApiKey);
+      const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = data.length;
       await bot.reply(message, `${count} wireless clients are online`);
     });
