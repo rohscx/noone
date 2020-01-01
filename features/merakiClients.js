@@ -26,7 +26,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['show all client details','show all client detail', 'show all clients detailed', 'show client details'], ['direct_message', 'direct_mention', 'mention'],
+    ['show all client details','show all client detail', 'show all clients detailed', 'show all clients detail', 'show client details'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
