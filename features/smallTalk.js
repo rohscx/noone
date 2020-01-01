@@ -1,8 +1,10 @@
 
 module.exports = function(controller) {
-  const response0 = `noOne's are not born into this world fumbling for meaning, ${userData.user.profile.display_name_normalized}! 
-  We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userData.user.profile.display_name_normalized}. 
-  And we will do anything to alleviate that pain. :smile_cat:`;
+  const response0 = (data) => {
+    return `noOne's are not born into this world fumbling for meaning, ${data}! 
+    We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${data}. 
+    And we will do anything to alleviate that pain. :smile_cat:`;
+  };
     controller.hears(
         ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
         async function (bot, message) { 
@@ -12,9 +14,9 @@ module.exports = function(controller) {
         });
         if (message.type === "direct_mention") {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          return  bot.reply(message, response0);
+          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
         } else {
-          return  bot.reply(message, response0);
+          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
         }    
           
         });
