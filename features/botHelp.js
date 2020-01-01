@@ -8,7 +8,7 @@ module.exports = function(controller) {
     show vpn logs
     determine how many wired clients are online
     determine how many wireless clients are online
-    internet connection health
+    internet health
     `;
     controller.hears(
         ['help'], ['direct_message', 'direct_mention', 'mention'],
