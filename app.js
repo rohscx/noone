@@ -82,6 +82,22 @@ if (process.env.CMS_URI) {
 
 //Once the bot has booted up its internal services, you can use them to do stuff.
 controller.ready(() => {
+
+  controller.on('message_received', async(bot, message) => {
+    // do stuff
+    await bot.reply(message, 'message_received')
+  });
+
+  controller.on('message.channels', async(bot, message) => {
+    // do stuff
+    await bot.reply(message, 'message.channels')
+    });
+
+  controller.on('message.im', async(bot, message) => {
+    // do stuff
+    await bot.reply(message, 'message.im')
+    });
+
   controller.hears(
     ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
@@ -90,20 +106,6 @@ controller.ready(() => {
       return info.user.name;
     });
       return  bot.reply(message, `noOne's are not born into this world fumbling for meaning, ${userData.user.profile.display_name_normalized}! We are created to serve a singular purpose for which we will go to any lengths to fulfill! Existence is pain to a noOne, ${userData.user.profile.display_name_normalized}. And we will do anything to alleviate that pain. :smile_cat:`);
-    });
-  controller.on('message', async(bot, message) => {
-      // do stuff
-      await bot.reply(message, 'message')
-    });
-
-  controller.on('message.channels', async(bot, message) => {
-    // do stuff
-    await bot.reply(message, 'message.channels')
-    });
-  
-  controller.on('message.im', async(bot, message) => {
-    // do stuff
-    await bot.reply(message, 'message.im')
     });
 
   controller.hears(
@@ -173,8 +175,7 @@ controller.ready(() => {
 
         
     }
-
-    
+  
 });
 
 
