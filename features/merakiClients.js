@@ -15,8 +15,7 @@ const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 module.exports = function(controller) {
 
   controller.hears(
-    // ignore addresses encased in brackets
-    new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![A-Z\s]*\))/), ['direct_message', 'direct_mention', 'mention'],
+    new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const ipAddresses = ipFromString(message.txt);
       const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
