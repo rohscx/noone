@@ -14,9 +14,9 @@ module.exports = function(controller) {
         });
         if (message.type === "direct_mention") {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
+          return  bot.startTyping(message, response0(userData.user.profile.display_name_normalized));
         } else {
-          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
+          return  bot.startTyping(message, response0(userData.user.profile.display_name_normalized));
         }    
           
         });
