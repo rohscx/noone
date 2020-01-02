@@ -20,6 +20,10 @@ module.exports = function(controller) {
   controller.hears(
       ['help'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
+        const userData = await bot.api.users.info({user: message.user}, function(err, info){
+          //check if it's the right user using info.user.name or info.user.id
+          return info.user.name;
+        });
           if (message.type === "direct_mention") {
               await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
               await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
