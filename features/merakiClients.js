@@ -13,7 +13,7 @@ const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 
 module.exports = function(controller) {
-
+  // gross regex match to ignore any ip address inside of brackets ()
   controller.hears(
     new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![A-Z\s]*(\)|\())/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
