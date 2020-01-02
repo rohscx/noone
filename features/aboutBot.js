@@ -8,9 +8,9 @@ module.exports = function(controller) {
             const {version,dependencies} = pjson;
             if (message.type === "direct_mention") {
                 await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-                await bot.reply(message, `App Version ${version} BotKit Version ${dependencies.botkit}`);
+                await bot.reply(message, `App Version ${version} BotKit Version ${dependencies.botkit.replace("^","")}`);
               } else {
-                await bot.reply(message, `App Version ${version} BotKit Version ${dependencies.botkit}`);
+                await bot.reply(message, `App Version ${version} BotKit Version ${dependencies.botkit.replace("^","")}`);
               }      
         });
 }

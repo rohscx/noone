@@ -1,5 +1,6 @@
 module.exports = function(controller) {
-    const generalHelpText = `
+  const generalHelpText = (data) => {
+    return `
     I can help with the following questions: 
     show online clients
     show all clients 
@@ -15,14 +16,15 @@ module.exports = function(controller) {
     show your version
     hello
     `;
-    controller.hears(
-        ['help'], ['direct_message', 'direct_mention', 'mention'],
-        async function (bot, message) { 
-            if (message.type === "direct_mention") {
-                await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-                await bot.reply(message, generalHelpText.trim()) 
-              } else {
-                await bot.reply(message, generalHelpText.trim()) 
-              }           
-        });
+  };
+  controller.hears(
+      ['help'], ['direct_message', 'direct_mention', 'mention'],
+      async function (bot, message) { 
+          if (message.type === "direct_mention") {
+              await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+              await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
+            } else {
+              await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
+            }           
+      });
 }
