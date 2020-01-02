@@ -1,3 +1,5 @@
+const isDirectMessage = require('../lib/isDirectMessage.js');
+
 module.exports = function(controller) {
   const generalHelpText = (data) => {
     return `
@@ -24,7 +26,7 @@ module.exports = function(controller) {
           //check if it's the right user using info.user.name or info.user.id
           return info.user.name;
         });
-          if (message.type === "direct_mention") {
+          if (isDirectMessage(message.type,["direct_mention","mention"])) {
               await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
               await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
             } else {

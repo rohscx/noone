@@ -1,6 +1,7 @@
 const {ipFromString} = require('nodeutilz')
 // Custom bot libs
 const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js');
+const isDirectMessage = require('../lib/isDirectMessage.js');
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
@@ -16,7 +17,7 @@ module.exports = function(controller) {
       const data = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
       
       const asString = JSON.stringify(data,null,'\t');
-      if (message.type === "direct_mention") {
+      if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, asString);
       } else {
