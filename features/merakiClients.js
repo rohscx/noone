@@ -17,7 +17,7 @@ module.exports = function(controller) {
   controller.hears(
     new RegExp(/(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      console.log("message Test",message)
+      console.log("message Test",JSON.stringify(message,null,'\t'))
       const ipAddresses = ipFromString(message.txt);
       const data = await ipAddresses.map(async (data) => await getMerakiClient(merakiNetworkId,merakiApiKey,data));
       console.log("data test", data)
