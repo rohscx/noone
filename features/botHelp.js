@@ -3,12 +3,16 @@ module.exports = function(controller) {
     I can help with the following questions: 
     show online clients
     show all clients 
-    show all clients detail 
+    show all clients detail
+    show all wired clients
+    show all wireless clients
+    show vpn logs 
+    how many wired clients are online
+    how many wireless clients are online
+    internet connection health
     iPv4 Lookup
-    show vpn logs
-    determine how many wired clients are online
-    determine how many wireless clients are online
-    internet health
+    show your version
+    hello
     `;
     controller.hears(
         ['help'], ['direct_message', 'direct_mention', 'mention'],

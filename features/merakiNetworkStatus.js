@@ -10,7 +10,7 @@ const publicTestIp = process.env.MERAKI_INTERNET_TEST_IP;
 module.exports = function(controller) {
 
   controller.hears(
-    ['internet connection', 'internet health', 'internet connection'], ['direct_message', 'direct_mention', 'mention'],
+    ['internet connection health', 'internet status', 'internet connection status'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const userDefinedIp = ipFromString(message.text)[0];
       const data = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
