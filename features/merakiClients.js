@@ -15,22 +15,23 @@ const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 module.exports = function(controller) {
   // gross regex match to ignore any ip address inside of brackets ()
   controller.hears(
-    new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![A-Z\s]*(\)|\())/), ['direct_message', 'direct_mention', 'mention'],
+    new RegExp(/(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      console.log(message.txt)
+      console.log("message Test",message.txt)
       const ipAddresses = ipFromString(message.txt);
-      const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
+      const data = await ipAddresses.map(async (data) => await getMerakiClient(merakiNetworkId,merakiApiKey,data));
+      console.log("data test", data)
+      //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, asString);
         for (ip of ipAddresses) {
-          await bot.startConversationInThread(message.channel, message.user, ip);
           await bot.reply(message, ip);
         }
         
       } else {
-        for (ip of ipAddresses) {
-          await bot.startConversationInThread(message.channel, message.user, ip);
-        }
+await bot.reply(message, asString);
       }
     });
   
