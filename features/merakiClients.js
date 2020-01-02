@@ -19,7 +19,7 @@ const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 module.exports = function(controller) {
   // gross regex match to ignore any ip address inside of brackets ()
   controller.hears(
-    new RegExp(/(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
+    new RegExp(/(lookup|Lookup|look up|Look up|LOOKUP).*(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const ipAddresses = ipFromString(message.text,{onlyIp:false});
       const data = await Promise.all(ipAddresses.map((data) => getMerakiClient(merakiNetworkId,merakiApiKey,data)));
