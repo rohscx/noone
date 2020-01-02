@@ -13,9 +13,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.startTyping(message, asString);
+        await bot.reply(message, asString);
       } else {
-        await bot.startTyping(message, asString);
+        await bot.reply(message, asString);
       }      
     });
 
