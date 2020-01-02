@@ -59,6 +59,33 @@ module.exports = function(controller) {
         await bot.reply(message, asString);
       }
     });
+
+  controller.hears(
+    ['show all wireless client', 'show all wireless clients', 'show me all wireless clients'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      if (message.type === "direct_mention") {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, asString);
+      } else {
+        await bot.reply(message, asString);
+      }
+      
+    });
+
+  controller.hears(
+    ['show all wired client', 'show all wired clients', 'show me all wired clients'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      if (message.type === "direct_mention") {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, asString);
+      } else {
+        await bot.reply(message, asString);
+      }
+    });
   
   controller.hears(
     ['show online clients', 'show clients online','show all clients online'], ['direct_message', 'direct_mention', 'mention'],
@@ -92,7 +119,12 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
-      await bot.reply(message, `${count} wired clients are online`);
+      if (message.type === "direct_mention") {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, `${count} wired clients are online`);
+      } else {
+        await bot.reply(message, `${count} wired clients are online`);
+      }
     });
 
   controller.hears(
