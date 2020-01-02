@@ -17,14 +17,16 @@ module.exports = function(controller) {
   controller.hears(
     new RegExp(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
+      console.log(message.txt)
       const ipAddresses = ipFromString(message.txt);
       const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(data,null,'\t');
       if (message.type === "direct_mention") {
         for (ip of ipAddresses) {
           await bot.startConversationInThread(message.channel, message.user, ip);
+          await bot.reply(message, ip);
         }
-        await bot.reply(message, asString);
+        
       } else {
         for (ip of ipAddresses) {
           await bot.startConversationInThread(message.channel, message.user, ip);
