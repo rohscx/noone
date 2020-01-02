@@ -50,7 +50,44 @@ module.exports = function(controller) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+                        "text": "We found *205 Hotels* in New Orleans, LA from *12/14 to 12/17*"
+                    },
+                    "accessory": {
+                        "type": "overflow",
+                        "options": [
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "emoji": true,
+                                    "text": "Option One"
+                                },
+                                "value": "value-0"
+                            },
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "emoji": true,
+                                    "text": "Option Two"
+                                },
+                                "value": "value-1"
+                            },
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "emoji": true,
+                                    "text": "Option Three"
+                                },
+                                "value": "value-2"
+                            },
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "emoji": true,
+                                    "text": "Option Four"
+                                },
+                                "value": "value-3"
+                            }
+                        ]
                     }
                 },
                 {
@@ -60,37 +97,88 @@ module.exports = function(controller) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*Farmhouse Thai Cuisine*\n:star::star::star::star: 1528 reviews\n They do have some vegan options, like the roti and curry, plus they have a ton of salad stuff and noodles can be ordered without meat!! They have something for everyone here"
+                        "text": "*<fakeLink.toHotelPage.com|Windsor Court Hotel>*\n★★★★★\n$340 per night\nRated: 9.4 - Excellent"
                     },
                     "accessory": {
                         "type": "image",
-                        "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg",
-                        "alt_text": "alt text for image"
+                        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgent_1.png",
+                        "alt_text": "Windsor Court Hotel thumbnail"
                     }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "image",
+                            "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgentLocationMarker.png",
+                            "alt_text": "Location Pin Icon"
+                        },
+                        {
+                            "type": "plain_text",
+                            "emoji": true,
+                            "text": "Location: Central Business District"
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*Kin Khao*\n:star::star::star::star: 1638 reviews\n The sticky rice also goes wonderfully with the caramelized pork belly, which is absolutely melt-in-your-mouth and so soft."
+                        "text": "*<fakeLink.toHotelPage.com|The Ritz-Carlton New Orleans>*\n★★★★★\n$340 per night\nRated: 9.1 - Excellent"
                     },
                     "accessory": {
                         "type": "image",
-                        "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/korel-1YjNtFtJlMTaC26A/o.jpg",
-                        "alt_text": "alt text for image"
+                        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgent_2.png",
+                        "alt_text": "Ritz-Carlton New Orleans thumbnail"
                     }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "image",
+                            "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgentLocationMarker.png",
+                            "alt_text": "Location Pin Icon"
+                        },
+                        {
+                            "type": "plain_text",
+                            "emoji": true,
+                            "text": "Location: French Quarter"
+                        }
+                    ]
+                },
+                {
+                    "type": "divider"
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*Ler Ros*\n:star::star::star::star: 2082 reviews\n I would really recommend the  Yum Koh Moo Yang - Spicy lime dressing and roasted quick marinated pork shoulder, basil leaves, chili & rice powder."
+                        "text": "*<fakeLink.toHotelPage.com|Omni Royal Orleans Hotel>*\n★★★★★\n$419 per night\nRated: 8.8 - Excellent"
                     },
                     "accessory": {
                         "type": "image",
-                        "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/DawwNigKJ2ckPeDeDM7jAg/o.jpg",
-                        "alt_text": "alt text for image"
+                        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgent_3.png",
+                        "alt_text": "Omni Royal Orleans Hotel thumbnail"
                     }
+                },
+                {
+                    "type": "context",
+                    "elements": [
+                        {
+                            "type": "image",
+                            "image_url": "https://api.slack.com/img/blocks/bkb_template_images/tripAgentLocationMarker.png",
+                            "alt_text": "Location Pin Icon"
+                        },
+                        {
+                            "type": "plain_text",
+                            "emoji": true,
+                            "text": "Location: French Quarter"
+                        }
+                    ]
                 },
                 {
                     "type": "divider"
@@ -102,30 +190,24 @@ module.exports = function(controller) {
                             "type": "button",
                             "text": {
                                 "type": "plain_text",
-                                "text": "Farmhouse",
-                                "emoji": true
+                                "emoji": true,
+                                "text": "Next 2 Results"
                             },
-                            "value": "Farmhouse"
-                        },
-                        {
-                            "type": "button",
-                            "text": {
-                                "type": "plain_text",
-                                "text": "Kin Khao",
-                                "emoji": true
-                            },
-                            "value": "Kin Khao"
-                        },
-                        {
-                            "type": "button",
-                            "text": {
-                                "type": "plain_text",
-                                "text": "Ler Ros",
-                                "emoji": true
-                            },
-                            "value": "Ler Ros"
+                            "value": "click_me_123"
                         }
                     ]
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "You can add an image next to text in this block."
+                    },
+                    "accessory": {
+                        "type": "image",
+                        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/plants.png",
+                        "alt_text": "plants"
+                    }
                 }
             ]
         });
