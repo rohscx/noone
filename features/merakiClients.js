@@ -1,4 +1,7 @@
-const{ipFromString} = require('nodeutilz');
+const{
+  ipFromString,
+  flattenArray
+} = require('nodeutilz');
 
 // Custom bot libs
 const getMerakiClients = require('../lib/getMerakiClients.js');
@@ -17,10 +20,11 @@ module.exports = function(controller) {
   controller.hears(
     new RegExp(/(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const ipAddresses = ipFromString(message.text);
+      const ipAddresses = ipFromString(message.text,{onlyIp:false});
       const data = await Promise.all(ipAddresses.map((data) => getMerakiClient(merakiNetworkId,merakiApiKey,data)));
+      const flatData = flattenArray(data);
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
-      const asString = JSON.stringify(data,null,'\t');
+      const asString = JSON.stringify(flatData,null,'\t');
       if (message.type === "direct_mention") {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, asString);   
