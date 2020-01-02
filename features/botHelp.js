@@ -9,6 +9,7 @@ module.exports = function(controller) {
     show vpn logs 
     how many wired clients are online
     how many wireless clients are online
+    how many clients are online
     internet connection health
     iPv4 Lookup
     show your version
