@@ -1,6 +1,8 @@
 const {ipFromString} = require('nodeutilz')
 // Custom bot libs
 const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js');
+const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
+const getMerakiLogsDhcp = require('../lib/getMerakiLogsDhcp.js');
 const isDirectMessage = require('../lib/isDirectMessage.js');
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
