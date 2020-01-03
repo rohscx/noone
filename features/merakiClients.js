@@ -24,6 +24,7 @@ module.exports = function(controller) {
     new RegExp(/(lookup|Lookup|look up|Look up|LOOKUP|who has ip).*(?<!\()\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b(?![\w\s]*[\)])/), ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const ipAddresses = ipFromString(message.text,{onlyIp:false});
+      console.log(JSON.stringify(ipAddresses))
       const data = await Promise.all(ipAddresses.map((data) => getMerakiClient(merakiNetworkId,merakiApiKey,data)));
       const flatData = flattenArray(data);
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
