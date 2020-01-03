@@ -17,6 +17,7 @@ module.exports = function(controller) {
     how many wireless clients are online on the Meraki?
     how many clients are online on the Meraki?
     internet connection health on the Meraki Router
+    are there network errors
     extract mac address i'm giving you...
     extract ip address i'm giving you...
     show your version
