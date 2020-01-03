@@ -39,51 +39,16 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
-      const         blockBuilder = (data) => {
-        return data.reduce((n,o,i) => {
-          if(i>9) return n;
-            const {description,ip,mac,lastSeen,status} = o;
-            n.push({"type": "divider"});
-            n.push({"type": "section",
-                    "fields": [
-                    {
-                        "type": "plain_text",
-                        "text": description,
-                        "emoji": true
-                    },
-                    {
-                        "type": "plain_text",
-                        "text": ip,
-                        "emoji": true
-                    },
-                    {
-                        "type": "plain_text",
-                        "text": mac,
-                        "emoji": true
-                    },
-                    {
-                        "type": "plain_text",
-                        "text": lastSeen,
-                        "emoji": true
-                    },
-                    {
-                        "type": "plain_text",
-                        "text": status,
-                        "emoji": true
-                    }
-                ]});
-            return n;
-        },[]);
-    };
+      const hyperDenseString = (data) => {
+        return data.map(({description,ip,mac,lastSeen,status})=> {
+          return `${description}\n${ip} ${mac}\n${lastSeen} ${status}`
+        }).join('\n\n');
+      };
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,{
-          blocks: blockBuilder(data)
-        });
+        await bot.reply(message,hyperDenseString(data));
       } else {
-        await bot.reply(message,{
-          blocks: blockBuilder(data)
-        });
+        await bot.reply(message,hyperDenseString(data));
       }
       
     })
