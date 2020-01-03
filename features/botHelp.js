@@ -3,20 +3,24 @@ const isDirectMessage = require('../lib/isDirectMessage.js');
 module.exports = function(controller) {
   const generalHelpText = (data) => {
     return `
-    I can help with the following questions: 
-    show online clients
-    show all clients 
-    show all clients detail
-    show all wired clients
-    show all wireless clients
-    show vpn logs 
-    how many wired clients are online
-    how many wireless clients are online
-    how many clients are online
-    internet connection health
-    iPv4 Lookup
+    Hi ${data} I can help you with questions like like the followng: 
+    show online clients on the Meraki
+    show network clients on the Meraki
+    show network clients detail on the Meraki
+    show wired clients on the Meraki
+    show wireless clients on the Meraki
+    show wireless guests
+    show vpn logs on the Meraki
+    show dhcp error logs on the Meraki
+    lookup iPv4 Address 192.168.1.17 from Meraki...
+    how many wired clients are online are on the Meraki?
+    how many wireless clients are online on the Meraki?
+    how many clients are online on the Meraki?
+    internet connection health on the Meraki Router
+    extract mac address i'm giving you...
+    extract ip address i'm giving you...
     show your version
-    hello
+    hello noOne
     `;
   };
   controller.hears(

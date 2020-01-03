@@ -4,15 +4,16 @@
 
 // This is the main file for the noOne bot.
 
-// Import Botkit's core features
+// Import Botkit's core features 
 const { Botkit } = require('botkit');
 const { BotkitCMSHelper } = require('botkit-plugin-cms');
 // Import a platform-specific adapter for slack.
 const { SlackAdapter, SlackMessageTypeMiddleware, SlackEventMiddleware } = require('botbuilder-adapter-slack');
 // Mongo conntetion
-//const { MongoDbStorage } = require('botbuilder-storage-mongodb');
+const { MongoDbStorage } = require('botbuilder-storage-mongodb');
 // Load process.env values from .env file
 require('dotenv').config();
+
 
 
 let storage = null;
@@ -21,7 +22,6 @@ if (process.env.MONGO_URI) {
         url : process.env.MONGO_URI,
     });
 }
-
 
 
 const adapter = new SlackAdapter({
