@@ -42,48 +42,95 @@ module.exports = function(controller) {
     //     await bot.say('And this should also be in that thread!');
     // });
 
-    controller.hears('blocks', 'message', async(bot, message) => {
-        blockBuilder = (data) => {
-            return data.reduce((n,o) => {
-                const {description,ip,mac,lastSeen,status} = o;
-                n.push({"type": "divider"});
-                n.push({"type": "section",
-                        "fields": [
-                        {
-                            "type": "mrkdwn",
-                            "text": `*${description}*`,
-                            "emoji": true
-                        },
-                        {
-                            "type": "plain_text",
-                            "text": `${ip}`,
-                            "emoji": true
-                        },
-                        {
-                            "type": "plain_text",
-                            "text": `${mac}`,
-                            "emoji": true
-                        },
-                        {
-                            "type": "plain_text",
-                            "text": `${lastSeen}`,
-                            "emoji": true
-                        },
-                        {
-                            "type": "plain_text",
-                            "text": `${status}`,
-                            "emoji": true
-                        }
-                    ]});
-                n.push({"type": "divider"});
-                return n;
-            },[])
-        };
-        await bot.reply(message,{
-            blocks: blockBuilder()
-        });
+    // controller.hears('blocks', 'message', async(bot, message) => {
 
-    });
+    //     await bot.reply(message,{
+    //         blocks: [
+    //             {
+    //                 "type": "section",
+    //                 "text": {
+    //                     "type": "mrkdwn",
+    //                     "text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+    //                 }
+    //             },
+    //             {
+    //                 "type": "divider"
+    //             },
+    //             {
+    //                 "type": "section",
+    //                 "text": {
+    //                     "type": "mrkdwn",
+    //                     "text": "*Farmhouse Thai Cuisine*\n:star::star::star::star: 1528 reviews\n They do have some vegan options, like the roti and curry, plus they have a ton of salad stuff and noodles can be ordered without meat!! They have something for everyone here"
+    //                 },
+    //                 "accessory": {
+    //                     "type": "image",
+    //                     "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg",
+    //                     "alt_text": "alt text for image"
+    //                 }
+    //             },
+    //             {
+    //                 "type": "section",
+    //                 "text": {
+    //                     "type": "mrkdwn",
+    //                     "text": "*Kin Khao*\n:star::star::star::star: 1638 reviews\n The sticky rice also goes wonderfully with the caramelized pork belly, which is absolutely melt-in-your-mouth and so soft."
+    //                 },
+    //                 "accessory": {
+    //                     "type": "image",
+    //                     "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/korel-1YjNtFtJlMTaC26A/o.jpg",
+    //                     "alt_text": "alt text for image"
+    //                 }
+    //             },
+    //             {
+    //                 "type": "section",
+    //                 "text": {
+    //                     "type": "mrkdwn",
+    //                     "text": "*Ler Ros*\n:star::star::star::star: 2082 reviews\n I would really recommend the  Yum Koh Moo Yang - Spicy lime dressing and roasted quick marinated pork shoulder, basil leaves, chili & rice powder."
+    //                 },
+    //                 "accessory": {
+    //                     "type": "image",
+    //                     "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/DawwNigKJ2ckPeDeDM7jAg/o.jpg",
+    //                     "alt_text": "alt text for image"
+    //                 }
+    //             },
+    //             {
+    //                 "type": "divider"
+    //             },
+    //             {
+    //                 "type": "actions",
+    //                 "elements": [
+    //                     {
+    //                         "type": "button",
+    //                         "text": {
+    //                             "type": "plain_text",
+    //                             "text": "Farmhouse",
+    //                             "emoji": true
+    //                         },
+    //                         "value": "Farmhouse"
+    //                     },
+    //                     {
+    //                         "type": "button",
+    //                         "text": {
+    //                             "type": "plain_text",
+    //                             "text": "Kin Khao",
+    //                             "emoji": true
+    //                         },
+    //                         "value": "Kin Khao"
+    //                     },
+    //                     {
+    //                         "type": "button",
+    //                         "text": {
+    //                             "type": "plain_text",
+    //                             "text": "Ler Ros",
+    //                             "emoji": true
+    //                         },
+    //                         "value": "Ler Ros"
+    //                     }
+    //                 ]
+    //             }
+    //         ]
+    //     });
+
+    // });
 
     // controller.on('block_actions', async (bot, message) => {
     //     await bot.reply(message, `Sounds like your choice is ${ message.incoming_message.channelData.actions[0].value }`)
