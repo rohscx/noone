@@ -4,11 +4,12 @@ const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js
 const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
 const getMerakiLogsDhcp = require('../lib/getMerakiLogsDhcp.js');
 const isDirectMessage = require('../lib/isDirectMessage.js');
-
+const sampleDataSet =  require('../lib/sampleDataSet.js');
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 const merakiGatwayRouter = process.env.MERAKI_GATEWAY_SN;
 const publicTestIp = process.env.MERAKI_INTERNET_TEST_IP;
+
 
 module.exports = function(controller) {
 
@@ -34,21 +35,14 @@ module.exports = function(controller) {
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
         const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
         const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
-        const {lossHealthStatus, latencyHeathStatus }= data0
-        const sample =  (data,sampleKey,sampleSize = 3) => {
-          const keys = [];
-          return data.reduce((n,o,i) => {
-            if(i > 0) {
-              if(!keys.includes(o[sampleKey])) n.push(o);
-              return n;
-            } else {
-              keys.push(o[sampleKey]);
-              n.push(o);
-              return n;
-            }
-          },[]).filter((f,i) => i+1 < sampleSize)
-        };
-        const data = [lossHealthStatus,latencyHeathStatus,data1.filter((f) => f.msg.toLowerCase().search('error') !== -1),sample(data2,"description",3)];
+        const {lossHealthStatus, latencyHeathStatus }= data0;
+        const vpnErrors = data1.filter((f) => f.msg.toLowerCase().search(new RegExp(/(error|failed|shorter)/)) !== -1);
+        const dhcpErrors = sampleDataSet(data2,"description",3);
+        const data = [];
+        if (lossHealthStatus !== "Healthy") data.push({lossHealthStatus});
+        if (latencyHeathStatus !== "Healthy") data.push({latencyHeathStatus});
+        if (vpnErrors.length > 0) data.push(vpnErrors);
+        if (dhcpErrors.length > 0) data.push(dhcpErrors);
         const asString = JSON.stringify(data,null,'\t');
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
