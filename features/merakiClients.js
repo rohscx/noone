@@ -41,14 +41,14 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       const hyperDenseString = (data) => {
         return data.map(({description,ip,mac,lastSeen,status})=> {
-          return `${description}\t${ip}\t${mac}\n${lastSeen}\t${status}`
-        }).join('\n\n');
+          return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
+        }).join('\n\n\n');
       };
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,hyperDenseString(data));
+        await bot.reply(message,asString);
       } else {
-        await bot.reply(message,hyperDenseString(data));
+        await bot.reply(message,asString);
       }
       
     })
