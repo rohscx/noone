@@ -4,7 +4,7 @@
 
 // This is the main file for the noOne bot.
 
-// Import Botkit's core features
+// Import Botkit's core features 
 const { Botkit } = require('botkit');
 const { BotkitCMSHelper } = require('botkit-plugin-cms');
 // Import a platform-specific adapter for slack.
