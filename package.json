@@ -13,7 +13,7 @@
     "botkit": "^4.6.0",
     "botkit-plugin-cms": "^1.0.3",
     "dotenv": "^7.0.0",
-    "nodeutilz": "^1.2.0"
+    "nodeutilz": "^1.2.1"
   },
   "engines": {
     "node": "10.x.x"
