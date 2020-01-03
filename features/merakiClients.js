@@ -46,8 +46,8 @@ module.exports = function(controller) {
             n.push({"type": "section",
                     "fields": [
                     {
-                        "type": "mrkdwn",
-                        "text": `*${description}*`,
+                        "type": "plain_text",
+                        "text": `${description}`,
                         "emoji": true
                     },
                     {
