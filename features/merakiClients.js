@@ -41,9 +41,7 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       const hyperDenseString = (data) => {
         return data.map(({description,ip,mac,lastSeen,status})=> {
-          const estOffset = 3600000 * -5;
-          const asEpoch = new Date(lastSeen).getDate();
-          return `${description}\t${ip}\t${mac}\n${new Date(asEpoch+estOffset)}\t${status}`
+          return `${description}\t${ip}\t${mac}\n${lastSeen}\t${status}`
         }).join('\n\n');
       };
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
