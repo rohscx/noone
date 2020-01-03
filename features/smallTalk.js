@@ -7,7 +7,7 @@ module.exports = function(controller) {
     And we will do anything to alleviate that pain. :smile_cat:`;
   };
     controller.hears(
-        ['hello', 'hi'], ['direct_message', 'direct_mention', 'mention'],
+        ['hello', 'hi', 'about'], ['direct_message', 'direct_mention', 'mention'],
         async function (bot, message) { 
          const userData = await bot.api.users.info({user: message.user}, function(err, info){
           //check if it's the right user using info.user.name or info.user.id
