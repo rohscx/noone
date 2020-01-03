@@ -11,7 +11,7 @@ module.exports = function(controller) {
     show all wireless clients on the Meraki
     show all wireless guests
     show vpn logs on the Meraki
-    show dhcp logs on the Meraki
+    show dhcp error logs on the Meraki
     
     lookup iPv4 Address 192.168.1.17 from Meraki...
     how many wired clients are online are on the Meraki?
