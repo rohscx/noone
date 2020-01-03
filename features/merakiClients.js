@@ -35,15 +35,55 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['show all client details','show all client detail', 'show all clients detailed', 'show all clients detail', 'show client details'], ['direct_message', 'direct_mention', 'mention'],
+    ['show all client details','show all client detail', 'show all clients detailed', 'show all clients detail', 'show client details', 'show me all clients details'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
+      const         blockBuilder = (data) => {
+        return data.reduce((n,o) => {
+            const {description,ip,mac,lastSeen,status} = o;
+            n.push({"type": "divider"});
+            n.push({"type": "section",
+                    "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": `*${description}*`,
+                        "emoji": true
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${ip}`,
+                        "emoji": true
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${mac}`,
+                        "emoji": true
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${lastSeen}`,
+                        "emoji": true
+                    },
+                    {
+                        "type": "plain_text",
+                        "text": `${status}`,
+                        "emoji": true
+                    }
+                ]});
+            n.push({"type": "divider"});
+            return n;
+        },[]);
+    };
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.reply(message,{
+          blocks: blockBuilder(data)
+        });
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message,{
+          blocks: blockBuilder(data)
+        });
       }
       
     })
