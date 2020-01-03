@@ -1,4 +1,7 @@
-const {ipFromString} = require('nodeutilz')
+const {
+  ipFromString,
+  flattenArray,
+} = require('nodeutilz')
 // Custom bot libs
 const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js');
 const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
@@ -43,7 +46,8 @@ module.exports = function(controller) {
         if (latencyHeathStatus !== "Healthy") data.push({latencyHeathStatus});
         if (vpnErrors.length > 0) data.push(vpnErrors);
         if (dhcpErrors.length > 0) data.push(dhcpErrors);
-        const asString = JSON.stringify(data,null,'\t');
+        const flattend = flattenArray(data);
+        const asString = JSON.stringify(flattend,null,'\t');
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
           await bot.reply(message, asString);
