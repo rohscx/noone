@@ -16,7 +16,7 @@ module.exports = function(controller) {
   controller.hears(
     ['internet connection health', 'internet status', 'internet connection status'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const userDefinedIp = ipFromString(message.text)[0];
+      const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
       const data = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
       
       const asString = JSON.stringify(data,null,'\t');
@@ -31,7 +31,7 @@ module.exports = function(controller) {
     controller.hears(
       ['are there network errors', ], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
-        const userDefinedIp = ipFromString(message.text)[0];
+        const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
         const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
         const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
