@@ -40,38 +40,38 @@ module.exports = function(controller) {
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
       const         blockBuilder = (data) => {
-        return data.reduce((n,o) => {
+        return data.reduce((n,o,i) => {
+          if(i>9) return n;
             const {description,ip,mac,lastSeen,status} = o;
             n.push({"type": "divider"});
             n.push({"type": "section",
                     "fields": [
                     {
                         "type": "plain_text",
-                        "text": `${description}`,
+                        "text": description,
                         "emoji": true
                     },
                     {
                         "type": "plain_text",
-                        "text": `${ip}`,
+                        "text": ip,
                         "emoji": true
                     },
                     {
                         "type": "plain_text",
-                        "text": `${mac}`,
+                        "text": mac,
                         "emoji": true
                     },
                     {
                         "type": "plain_text",
-                        "text": `${lastSeen}`,
+                        "text": lastSeen,
                         "emoji": true
                     },
                     {
                         "type": "plain_text",
-                        "text": `${status}`,
+                        "text": status,
                         "emoji": true
                     }
                 ]});
-            n.push({"type": "divider"});
             return n;
         },[]);
     };
