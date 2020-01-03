@@ -6,7 +6,7 @@ module.exports = function(controller) {
     Hi ${data} I can help you with questions like like the followng: 
     show online clients on the Meraki
     show network clients on the Meraki
-    show network clients detail on the Meraki
+    show network client details on the Meraki
     show wired clients on the Meraki
     show wireless clients on the Meraki
     show wireless guests
