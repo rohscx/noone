@@ -13,6 +13,8 @@ const getMerakiClientsOnline = require('../lib/getMerakiClientsOnline.js');
 const getMerakiClientsOnlineWired = require('../lib/getMerakiClientsOnlineWired.js');
 const getMerakiClientsOnlineWireless = require('../lib/getMerakiClientsOnlineWireless.js');
 const getMerakiClientsOnlineWirelessGuest = require('../lib/getMerakiClientsOnlineWirelessGuest.js');
+const getMerakiClientsWired = require('../lib/getMerakiClientsWired.js');
+const getMerakiClientsWireless = require('../lib/getMerakiClientsWireless.js');
 
 require('dotenv').config();
 
@@ -36,31 +38,12 @@ module.exports = function(controller) {
         await bot.reply(message, asString);
       }
     });
-  
+
   controller.hears(
-    ['network client details','network client detail', 'all clients detailed', 'all clients detail', 'show client details', 'show me all clients details', 'show me all network clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['wired client', 'wired network clients', 'the wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
+      const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
-      const hyperDenseString = (data) => {
-        return data.map(({description,ip,mac,lastSeen,status})=> {
-          return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
-        }).join('\n\n\n');
-      };
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,keyWordSearch(data,"description",message.text));
-      } else {
-        await bot.reply(message,keyWordSearch(data,"description",message.text));
-      }
-      
-    })
-  
-  controller.hears(
-    ['network client', 'network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
-    async function (bot, message) { 
-      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
@@ -84,33 +67,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['wired client', 'wired network clients', 'the wired clients'], ['direct_message', 'direct_mention', 'mention'],
-    async function (bot, message) { 
-      const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      }
-    });
-  
-  controller.hears(
-    ['the online client', 'clients online','online client',' all clients online'], ['direct_message', 'direct_mention', 'mention'],
-    async function (bot, message) { 
-      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      }
-    });
-
-  controller.hears(
-    ['wireless guest', 'wifi guest'], ['direct_message', 'direct_mention', 'mention'],
+    ['guest wireless client', 'guest wifi client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -124,58 +81,132 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many online', 'how many clients', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
+    ['network client', 'network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const count = data.length;
+      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+      
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} clients are online`);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, `${count} clients are online`);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
+      }
+    });
+  
+  controller.hears(
+    ['network client detail', 'network clients detail', 'network client detailed'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      const hyperDenseString = (data) => {
+        return data.map(({description,ip,mac,lastSeen,status})=> {
+          return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
+        }).join('\n\n\n');
+      };
+      if (isDirectMessage(message.type,["direct_mention","mention"])) {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message,keyWordSearch(data,"description",message.text));
+      } else {
+        await bot.reply(message,keyWordSearch(data,"description",message.text));
       }
       
-    });
+    })
 
   controller.hears(
-    ['how many wired', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['network client online ','network clients online'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
+      const asString = JSON.stringify(data,null,'\t');
+      if (isDirectMessage(message.type,["direct_mention","mention"])) {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
+      } else {
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
+      }
+    });
+
+
+
+  controller.hears(
+    ['how many wired clients online', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = data.length;
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} wired clients are online`);
+        await bot.reply(message, count);
       } else {
-        await bot.reply(message, `${count} wired clients are online`);
+        await bot.reply(message, count);
       }
     });
 
   controller.hears(
-    ['how many wireless', 'how many wifi', 'who many wifi'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wireless clients are online', 'how many wifi clients are online',], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = data.length;
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.reply(message, count);
       } else {
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.reply(message, count);
       }
       
     });
 
   controller.hears(
-    ['how many guest', 'how many wireless gurst', 'who many wifi guest'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many guest online', 'how many guests online', 'how many guests are online','how many wireless guests online', ], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const count = data.length;
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.reply(message, count);
       } else {
-        await bot.reply(message, `${count} wireless clients are online`);
+        await bot.reply(message, count);
       }
       
     });
+    
+  controller.hears(
+    ['how many clients are online', 'how many clients', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
+      const count = data.length;
+      if (isDirectMessage(message.type,["direct_mention","mention"])) {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, count);
+      } else {
+        await bot.reply(message, count);
+      }
+      
+    });
+
+    controller.hears(
+      ['how many wired client', 'count wired client', 'count the wired client', 'count of the wired client'], ['direct_message', 'direct_mention', 'mention'],
+      async function (bot, message) { 
+        const data = await getMerakiClientsWired(merakiNetworkId,merakiApiKey);
+        const count = data.length;
+        if (isDirectMessage(message.type,["direct_mention","mention"])) {
+          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+          await bot.reply(message, count);
+        } else {
+          await bot.reply(message, count);
+        }
+      });
+
+    controller.hears(
+      ['how many wireless client', 'count wireless client', 'count of the wireless', 'how many wifi client'], ['direct_message', 'direct_mention', 'mention'],
+      async function (bot, message) { 
+        const data = await getMerakiClientsWireless(merakiNetworkId,merakiApiKey);
+        const count = data.length;
+        if (isDirectMessage(message.type,["direct_mention","mention"])) {
+          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+          await bot.reply(message, count);
+        } else {
+          await bot.reply(message, count);
+        }
+        
+      });
     
 }
