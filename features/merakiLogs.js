@@ -23,7 +23,7 @@ module.exports = function(controller) {
     });
 
     controller.hears(
-      ['dhcp error logs'], ['direct_message', 'direct_mention', 'mention'],
+      ['dhcp error logs', 'dhcp error'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');

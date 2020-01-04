@@ -37,7 +37,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['show network client details','show network client detail', 'show all clients detailed', 'show all clients detail', 'show client details', 'show me all clients details', 'show me all network clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['network client details','network client detail', 'all clients detailed', 'all clients detail', 'show client details', 'show me all clients details', 'show me all network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -56,7 +56,7 @@ module.exports = function(controller) {
     })
   
   controller.hears(
-    ['show network client', 'show network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['network client', 'network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -69,7 +69,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['show wireless client', 'show wireless clients', 'show the wireless clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['wireless client', 'wireless clients', 'the wireless clients', 'wifi clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -83,7 +83,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['show wired client', 'show wired network clients', 'show the wired clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['wired client', 'wired network clients', 'the wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -96,7 +96,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['show the online client', 'show clients online','show online client',,'show all clients online'], ['direct_message', 'direct_mention', 'mention'],
+    ['the online client', 'clients online','online client',' all clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -109,7 +109,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['show wireless guest', 'show wifi guest'], ['direct_message', 'direct_mention', 'mention'],
+    ['wireless guest', 'wifi guest'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -164,7 +164,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many guest', 'how many wireless', 'who many wifi'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many guest', 'how many wireless gurst', 'who many wifi guest'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const count = data.length;

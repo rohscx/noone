@@ -38,12 +38,13 @@ module.exports = function(controller) {
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
         const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
         const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
-        const {lossHealthStatus, latencyHeathStatus }= data0;
+        const {lossHealthStatus, latencyHeathStatus, metaData}= data0;
+        const {lossAverage,latencyAverage,lossAverageUnit,latencyAverageUnit} = metaData;
         const vpnErrors = data1.filter((f) => f.msg.toLowerCase().search(new RegExp(/(error|failed|shorter)/)) !== -1);
         const dhcpErrors = sampleDataSet(data2,"description",3);
         const data = [];
-        if (lossHealthStatus !== "Healthy") data.push({lossHealthStatus});
-        if (latencyHeathStatus !== "Healthy") data.push({latencyHeathStatus});
+        if (lossHealthStatus !== "Healthy") data.push({lossHealthStatus,lossAverage,lossAverageUnit});
+        if (latencyHeathStatus !== "Healthy") data.push({latencyHeathStatus,latencyAverage,latencyAverageUnit});
         if (vpnErrors.length > 0) data.push(vpnErrors);
         if (dhcpErrors.length > 0) data.push(dhcpErrors);
         const flattend = flattenArray(data);
