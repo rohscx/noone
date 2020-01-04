@@ -32,7 +32,7 @@ module.exports = function(controller) {
     });
 
     controller.hears(
-      ['are there network errors', ], ['direct_message', 'direct_mention', 'mention'],
+      ['are there network errors', 'are there any network errors'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
