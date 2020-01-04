@@ -44,7 +44,7 @@ module.exports = function(controller) {
     ['how many wired clients online', 'how many wired clients are online', 'how many wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
-      const count = data.length;
+      const count = objectCounter(data,"wiredClientCountOnline",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -57,7 +57,7 @@ module.exports = function(controller) {
     ['how many wireless clients are online', 'how many wifi clients are online',], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
-      const count = data.length;
+      const count = objectCounter(data,"wirelessClientCountOnline",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -71,7 +71,7 @@ module.exports = function(controller) {
     ['how many guest online', 'how many guests online', 'how many guests are online','how many wireless guests online', ], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"wirelessGuestClientCount");
+      const count = objectCounter(data,"wirelessGuestClientCountOnline",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -85,7 +85,7 @@ module.exports = function(controller) {
     ['how many clients are online', 'how many clients', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"clientCount",{asString:true});
+      const count = objectCounter(data,"clientCountOnline",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -99,7 +99,7 @@ module.exports = function(controller) {
     ['how many wired client', 'count wired client', 'count the wired client', 'count of the wired client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsWired(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"wiredClientCount");
+      const count = objectCounter(data,"wiredClientCount",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -138,7 +138,6 @@ module.exports = function(controller) {
     ['wired client', 'wired network clients', 'the wired clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
@@ -151,7 +150,6 @@ module.exports = function(controller) {
     ['wireless client', 'wireless clients', 'the wireless clients', 'wifi clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
@@ -165,7 +163,6 @@ module.exports = function(controller) {
     ['guest wireless client', 'guest wifi client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message,keyWordSearch(data,"description",message.text));
@@ -179,7 +176,6 @@ module.exports = function(controller) {
     ['network client detail', 'network clients detail', 'network client detailed'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
       const hyperDenseString = (data) => {
         return data.map(({description,ip,mac,lastSeen,status})=> {
           return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
@@ -198,7 +194,6 @@ module.exports = function(controller) {
     ['network client online','network clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
@@ -211,7 +206,6 @@ module.exports = function(controller) {
     ['network client', 'network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
