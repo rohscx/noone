@@ -85,7 +85,7 @@ module.exports = function(controller) {
     ['how many clients are online', 'how many clients', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"clientCount");
+      const count = objectCounter(data,"clientCount",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -195,7 +195,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['network client online ','network clients online'], ['direct_message', 'direct_mention', 'mention'],
+    ['network client online','network clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
