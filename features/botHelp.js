@@ -4,23 +4,24 @@ module.exports = function(controller) {
   const generalHelpText = (data) => {
     return `
     Hi ${data} I can help you with questions like like the followng: 
-    show the wired clients
+    how many wired clients are there?
+    how many wireless client are there?
+    how many wireless guest clients are there?
+    how many clients are there?
+    show wired clients
     show wireless clients
     show guest wireless clients
     show network clients
-    show network clients details
-    show network clients online
-    how many wired clients are online
-    how many wireless clients are online
-    how many guests are online
-    how many clients are online
-    internet connection health on the Meraki Router
-    are there network errors
+    show detailed network clients
+    show internet connection health
+    show network errors
+    show vpn logs
+    show dhcp error logs
     extract mac address from this: 34:17:eb:a2:dc:c6 a8:6b:ad:76:b0:19 48:bf:6b:db:35:bc
     extract mac address from this with cisco format: 34:17:eb:a2:dc:c6 a8:6b:ad:76:b0:19 48:bf:6b:db:35:bc
     extract ip address from this: 192.168.1.1 192.16.1.2, 10.77.11.6 
-    show your version
-    hello noOne
+    show version
+    hello
     `;
   };
   controller.hears(
