@@ -59,7 +59,15 @@ module.exports = function(controller) {
     ['network client', 'network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      const asString = JSON.stringify(data,null,'\t');
+      const keyWord = message.text.match(new RegExp(/(?<=\[).+?(?=\])/)).toLowerCase();
+      const filteredData = data.filter(({description}) => description.search(keyWord) != -1);
+      let asString
+      if (filteredData.length > 0) {
+        asString = JSON.stringify(filteredData,null,'\t');
+      } else {
+        asString = JSON.stringify(data,null,'\t');
+      }
+      
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, asString);
