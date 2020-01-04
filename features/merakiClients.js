@@ -59,7 +59,7 @@ module.exports = function(controller) {
     ['network client', 'network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      const keyWord = message.text.match(new RegExp(/(?<=\[).+?(?=\])/));
+      const keyWord = message.text.match(new RegExp(/(\[(?:\[??[^\[]*?\]))/));
       
       let asString
       if (keyWord){
