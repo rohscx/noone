@@ -112,7 +112,7 @@ module.exports = function(controller) {
     ['how many wireless client', 'count wireless client', 'count of the wireless', 'how many wifi client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsWireless(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"wirelessClientCount");
+      const count = objectCounter(data,"wirelessClientCount",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -125,7 +125,7 @@ module.exports = function(controller) {
     ['how many client', 'count client', 'count of the network clients',], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      const count = objectCounter(data,"wirelessClientCount");
+      const count = objectCounter(data,"wirelessClientCount",{asString:true});
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
