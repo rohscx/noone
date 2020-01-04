@@ -41,7 +41,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['how many wired clients online', 'how many wired clients',], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wired client', 'how many wired host', 'count wired client', 'count wired host'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wiredClientCountOnline",{asString:true});
@@ -54,7 +54,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many wireless clients are online', 'how many wifi clients',], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wireless client', 'how many wireless users' , 'how many wifi client', 'how many wifi host', 'count wireless client', 'count wifi clients', 'count wifi host', 'count wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessClientCountOnline",{asString:true});
@@ -68,7 +68,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['how many guest clients online', 'how many guests client','how many wireless guests online', ], ['direct_message', 'direct_mention', 'mention'],
+    ['how many wireless guest client', 'how many wireless guest host', 'how many wifi guest client', 'how many wifi guest host', 'count wifi guest client', 'count wifi guest host', 'count wifi guest user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessGuestClientCountOnline",{asString:true});
@@ -82,7 +82,7 @@ module.exports = function(controller) {
     });
     
   controller.hears(
-    ['how many clients are online', 'how many client', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
+    ['how many client', 'how many users', 'how may host'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"clientCountOnline",{asString:true});
@@ -135,7 +135,7 @@ module.exports = function(controller) {
   //   });
 
   controller.hears(
-    ['wired client', 'wired network clients', 'the wired clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['show wired client', 'show wired network client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
@@ -147,7 +147,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['wireless client', 'wireless clients', 'the wireless clients', 'wifi clients'], ['direct_message', 'direct_mention', 'mention'],
+    ['show wireless client', 'show wireless host', 'show wireless user', 'show wifi client', 'show wifi host', 'show wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
@@ -160,7 +160,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['guest wireless client', 'guest wifi client'], ['direct_message', 'direct_mention', 'mention'],
+    ['show guest wireless client', 'show guest wifi host', 'show guest wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
@@ -173,7 +173,7 @@ module.exports = function(controller) {
     });
   
   controller.hears(
-    ['network client detail', 'network clients detail', 'network client detailed'], ['direct_message', 'direct_mention', 'mention'],
+    ['show detailed network client', 'show detailed network host', 'show detailed network user', 'show all network client', 'show all network host', 'show all network user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsDetail(merakiNetworkId,merakiApiKey);
       const hyperDenseString = (data) => {
@@ -191,7 +191,7 @@ module.exports = function(controller) {
     });
 
   controller.hears(
-    ['network client online','network clients online'], ['direct_message', 'direct_mention', 'mention'],
+    ['show network client','show network host', 'show network user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
