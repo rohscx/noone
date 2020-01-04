@@ -19,7 +19,6 @@ module.exports = function(controller) {
   controller.hears(
     ['show internet connection health', 'show internet status', 'show internet connection status', 'show internet health'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
-      if(message.is_echo) return;
       const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
       const data = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
       
@@ -35,11 +34,10 @@ module.exports = function(controller) {
     controller.hears(
       ['show network errors', 'are there any network errors', 'are there network errors'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
-        if(message.is_echo) return;
         const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
-        const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,10);
-        const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey,50);
+        const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,100);
+        const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey,100);
         const {lossHealthStatus, latencyHeathStatus, metaData}= data0;
         const {lossAverage,latencyAverage,lossAverageUnit,latencyAverageUnit} = metaData;
         const vpnErrors = data1.filter((f) => f.msg.toLowerCase().search(new RegExp(/(error|failed|shorter)/)) !== -1);
