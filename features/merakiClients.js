@@ -3,6 +3,7 @@ const{
   flattenArray
 } = require('nodeutilz');
 const isDirectMessage = require('../lib/isDirectMessage.js');
+const keyWordSearch = require('../lib/keyWordSearch.js');
 
 // Custom bot libs
 const getMerakiClients = require('../lib/getMerakiClients.js');
@@ -48,9 +49,9 @@ module.exports = function(controller) {
       };
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,asString);
+        await bot.reply(message,keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message,asString);
+        await bot.reply(message,keyWordSearch(data,"description",message.text));
       }
       
     })
@@ -59,25 +60,12 @@ module.exports = function(controller) {
     ['network client', 'network clients', 'show me network clients'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      const keyWord = message.text.match(new RegExp(/(\[(?:\[??[^\[]*?\]))/));
-      
-      let asString
-      if (keyWord){
-        const filteredData = data.filter(({description}) => String(description).toLowerCase().search(keyWord[0].toLowerCase()) != -1);
-        if (filteredData.length > 0) {
-          asString = JSON.stringify(filteredData,null,'\t');
-        } else {
-          asString = JSON.stringify(data,null,'\t');
-        }
-      } else {
-        asString = JSON.stringify(data,null,'\t');
-      }
       
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       }
     });
 
@@ -88,9 +76,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       }
       
     });
@@ -102,9 +90,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       }
     });
   
@@ -115,9 +103,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       }
     });
 
@@ -128,9 +116,9 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,asString);
+        await bot.reply(message,keyWordSearch(data,"description",message.text));
       } else {
-        await bot.reply(message, asString);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
       }
       
     });
