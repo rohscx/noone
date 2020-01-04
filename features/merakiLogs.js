@@ -10,7 +10,7 @@ const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 module.exports = function(controller) {
 
   controller.hears(
-    ['vpn logs'], ['direct_message', 'direct_mention', 'mention'],
+    ['show vpn logs'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
@@ -23,7 +23,7 @@ module.exports = function(controller) {
     });
 
     controller.hears(
-      ['dhcp error logs', 'dhcp error'], ['direct_message', 'direct_mention', 'mention'],
+      ['show dhcp error logs', 'show dhcp error'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');
