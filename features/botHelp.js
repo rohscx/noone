@@ -10,13 +10,10 @@ module.exports = function(controller) {
     show network clients
     show network clients details
     show network clients online
-    how many wired clients online
+    how many wired clients are online
     how many wireless clients are online
     how many guests are online
     how many clients are online
-    how many wired clients total
-    how many wireless clients total
-    how many clients total
     internet connection health on the Meraki Router
     are there network errors
     extract mac address from this: 34:17:eb:a2:dc:c6 a8:6b:ad:76:b0:19 48:bf:6b:db:35:bc
