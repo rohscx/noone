@@ -174,19 +174,6 @@ module.exports = function(controller) {
       }
       
     });
-
-  controller.hears(
-    ['network client', 'network clients'], ['direct_message', 'direct_mention', 'mention'],
-    async function (bot, message) { 
-      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
-      
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
-      }
-    });
   
   controller.hears(
     ['network client detail', 'network clients detail', 'network client detailed'], ['direct_message', 'direct_mention', 'mention'],
@@ -205,13 +192,26 @@ module.exports = function(controller) {
         await bot.reply(message,keyWordSearch(data,"description",message.text));
       }
       
-    })
+    });
 
   controller.hears(
     ['network client online ','network clients online'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
+      if (isDirectMessage(message.type,["direct_mention","mention"])) {
+        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
+      } else {
+        await bot.reply(message, keyWordSearch(data,"description",message.text));
+      }
+    });
+
+  controller.hears(
+    ['network client', 'network clients'], ['direct_message', 'direct_mention', 'mention'],
+    async function (bot, message) { 
+      const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+      
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, keyWordSearch(data,"description",message.text));
