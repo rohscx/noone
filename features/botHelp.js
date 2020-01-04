@@ -27,6 +27,7 @@ module.exports = function(controller) {
   controller.hears(
       ['help'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
+        if(message.is_echo) return;
         const userData = await bot.api.users.info({user: message.user}, function(err, info){
           //check if it's the right user using info.user.name or info.user.id
           return info.user.name;

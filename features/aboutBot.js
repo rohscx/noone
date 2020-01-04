@@ -6,6 +6,7 @@ module.exports = function(controller) {
     controller.hears(
         ['version'], ['direct_message', 'direct_mention', 'mention'],
         async function (bot, message) { 
+          if(message.is_echo) return;
             const {version,dependencies} = pjson;
             if (isDirectMessage(message.type,["direct_mention","mention"])) {
                 await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
