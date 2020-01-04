@@ -63,8 +63,7 @@ module.exports = function(controller) {
       
       let asString
       if (keyWord){
-        console.log("keyword",keyWord,"[0]",keyWord[0],"tolower",keyWord[0].toLowerCase())
-        const filteredData = data.filter(({description}) => description.toLowerCase().search(keyWord[0].toLowerCase()) != -1);
+        const filteredData = data.filter(({description}) => String(description).toLowerCase().search(keyWord[0].toLowerCase()) != -1);
         if (filteredData.length > 0) {
           asString = JSON.stringify(filteredData,null,'\t');
         } else {
