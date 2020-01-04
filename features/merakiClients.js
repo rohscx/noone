@@ -60,10 +60,15 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
       const keyWord = message.text.match(new RegExp(/(?<=\[).+?(?=\])/));
-      const filteredData = data.filter(({description}) => description.toLowerCase().search(keyWord.toLowerCase()) != -1);
+      
       let asString
-      if (filteredData.length > 0) {
-        asString = JSON.stringify(filteredData,null,'\t');
+      if (keyWord){
+        const filteredData = data.filter(({description}) => description.toLowerCase().search(keyWord[0].toLowerCase()) != -1);
+        if (filteredData.length > 0) {
+          asString = JSON.stringify(filteredData,null,'\t');
+        } else {
+          asString = JSON.stringify(data,null,'\t');
+        }
       } else {
         asString = JSON.stringify(data,null,'\t');
       }
