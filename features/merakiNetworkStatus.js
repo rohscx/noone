@@ -36,7 +36,7 @@ module.exports = function(controller) {
       async function (bot, message) { 
         const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
-        const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,100);
+        const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,25);
         const data2 = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey,100);
         const {lossHealthStatus, latencyHeathStatus, metaData}= data0;
         const {lossAverage,latencyAverage,lossAverageUnit,latencyAverageUnit} = metaData;
