@@ -4,6 +4,7 @@ const{
 } = require('nodeutilz');
 const isDirectMessage = require('../lib/isDirectMessage.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
+const objectCounter = require('../lib/objectCounter.js');
 
 // Custom bot libs
 const getMerakiClients = require('../lib/getMerakiClients.js');
@@ -158,7 +159,7 @@ module.exports = function(controller) {
     ['how many guest online', 'how many guests online', 'how many guests are online','how many wireless guests online', ], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
-      const count = data.length;
+      const count = objectCounter(data,"wirelessGuestClientCount");
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -172,7 +173,7 @@ module.exports = function(controller) {
     ['how many clients are online', 'how many clients', 'how many users'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const count = data.length;
+      const count = objectCounter(data,"clientCount");
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, count);
@@ -186,7 +187,7 @@ module.exports = function(controller) {
       ['how many wired client', 'count wired client', 'count the wired client', 'count of the wired client'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiClientsWired(merakiNetworkId,merakiApiKey);
-        const count = data.length;
+        const count = objectCounter(data,"wiredClientCount");
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
           await bot.reply(message, count);
@@ -199,14 +200,26 @@ module.exports = function(controller) {
       ['how many wireless client', 'count wireless client', 'count of the wireless', 'how many wifi client'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiClientsWireless(merakiNetworkId,merakiApiKey);
-        const count = data.length;
+        const count = objectCounter(data,"wirelessClientCount");
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
           await bot.reply(message, count);
         } else {
           await bot.reply(message, count);
         }
-        
       });
+
+      controller.hears(
+        ['how many client', 'count client', 'count of the network clients',], ['direct_message', 'direct_mention', 'mention'],
+        async function (bot, message) { 
+          const data = await getMerakiClients(merakiNetworkId,merakiApiKey);
+          const count = objectCounter(data,"wirelessClientCount");
+          if (isDirectMessage(message.type,["direct_mention","mention"])) {
+            await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
+            await bot.reply(message, count);
+          } else {
+            await bot.reply(message, count);
+          }
+        });
     
 }
