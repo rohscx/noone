@@ -5,6 +5,7 @@ const{
 const isDirectMessage = require('../lib/isDirectMessage.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
 const objectCounter = require('../lib/objectCounter.js');
+const dataBaseSearch = require('../lib/dataBaseSearch.js');
 
 // Custom bot libs
 const getMerakiClients = require('../lib/getMerakiClients.js');
@@ -30,6 +31,13 @@ module.exports = function(controller) {
       const ipAddresses = ipFromString(message.text,{onlyIp:false});
       const data = await Promise.all(ipAddresses.map((data) => getMerakiClient(merakiNetworkId,merakiApiKey,data)));
       const flatData = flattenArray(data);
+      const dbLookup = flatData.map(async (d) => {
+        if (d.description) {
+          const db = await keyWordSearch('name',d.description);
+          const dbFiltered = await objectKeyFilter(assetSearchArray,['name','serialNumber','inService','tags'])
+          return {...d,db:dbFiltered};
+        }
+      });
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(flatData,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
