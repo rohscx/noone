@@ -35,8 +35,11 @@ module.exports = function(controller) {
       const dbLookup = await Promise.all(flatData.map(async (d) => {
         if (d.description) {
           const db = await dataBaseSearch('name', d.description);
+          console.log(db)
           if (db.length > 0) {
-            return { ...d, metaData: { name: db.name, serialNumber: db.serialNumber, inService: db.inService, tags: db.tags } };
+            const { name, serialNumber, inService, tags } = db;
+            console.log(d)
+            return { ...d, metaData: db };
           }
           else {
             
