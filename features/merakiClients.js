@@ -138,11 +138,12 @@ module.exports = function(controller) {
     ['show wired client', 'show wired network client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
+      const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       }
     });
 
@@ -150,11 +151,12 @@ module.exports = function(controller) {
     ['show wireless client', 'show wireless host', 'show wireless user', 'show wifi client', 'show wifi host', 'show wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
+      const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       }
       
     });
@@ -163,11 +165,12 @@ module.exports = function(controller) {
     ['show guest wireless client', 'show guest wifi host', 'show guest wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
+      const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       }
       
     });
@@ -181,11 +184,12 @@ module.exports = function(controller) {
           return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
         }).join('\n\n\n');
       };
+      const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message,keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       } else {
-        await bot.reply(message,keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       }
       
     });
@@ -194,11 +198,12 @@ module.exports = function(controller) {
     ['show network client','show network host', 'show network user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
+      const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       } else {
-        await bot.reply(message, keyWordSearch(data,"description",message.text));
+        await bot.reply(message, keyWordResult);
       }
     });
 
