@@ -37,9 +37,9 @@ module.exports = function(controller) {
           const db = await dataBaseSearch('name', d.description);
           console.log(db)
           if (db.length > 0) {
-            const { name, serialNumber, inService, tags } = db;
+            const { name, serialNumber, inService, tags } = db[0];
             console.log(d)
-            return { ...d, metaData: db };
+            return { ...d, metaData: { name, serialNumber, inService, tags } };
           }
           else {
             
