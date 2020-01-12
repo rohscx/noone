@@ -45,7 +45,7 @@ module.exports = function(controller) {
         }
       });
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
-      const asString = JSON.stringify(flatData,null,'\t');
+      const asString = JSON.stringify(dbLookup,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
         await bot.reply(message, asString);   
