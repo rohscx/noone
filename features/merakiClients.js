@@ -32,7 +32,7 @@ module.exports = function(controller) {
       const ipAddresses = ipFromString(message.text,{onlyIp:false});
       const data = await Promise.all(ipAddresses.map((data) => getMerakiClient(merakiNetworkId,merakiApiKey,data)));
       const flatData = flattenArray(data);
-      const dbLookup = flatData.map(async (d) => {
+      const dbLookup = await Promise.all(flatData.map(async (d) => {
         if (d.description) {
           const db = await dataBaseSearch('name', d.description);
           console.log(db)
@@ -49,7 +49,7 @@ module.exports = function(controller) {
         else {
           return d;
         }
-      });
+      }));
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(dbLookup,null,'\t');
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
