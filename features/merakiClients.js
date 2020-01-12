@@ -6,7 +6,7 @@ const isDirectMessage = require('../lib/isDirectMessage.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
 const dataBaseSearch = require('../lib/dataBaseSearch.js');
 const objectCounter = require('../lib/objectCounter.js');
-const dataBaseSearch = require('../lib/dataBaseSearch.js');
+
 
 // Custom bot libs
 const getMerakiClients = require('../lib/getMerakiClients.js');
