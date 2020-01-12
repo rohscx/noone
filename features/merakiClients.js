@@ -38,8 +38,8 @@ module.exports = function(controller) {
           console.log(db)
           if (db.length > 0) {
             const { name, serialNumber, inService, tags } = db;
-            console.log(inService)
-            return { ...d, metaData: { name, serialNumber, inService, tags } };
+            console.log(d)
+            return { d, metaData: { name, serialNumber, inService, tags } };
           }
           else {
             
