@@ -34,8 +34,14 @@ module.exports = function(controller) {
       const dbLookup = flatData.map(async (d) => {
         if (d.description) {
           const db = await keyWordSearch('name',d.description);
-          const dbFiltered = await objectKeyFilter(assetSearchArray,['name','serialNumber','inService','tags'])
-          return {...d,db:dbFiltered};
+          if (db.length > 0) {
+            const {name,serialNumber,inService,tags} = db;
+            return {...d,metaData:{name,serialNumber,inService,tags}}
+          } else {
+            return d;
+          }
+        } else {
+          return d;
         }
       });
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
