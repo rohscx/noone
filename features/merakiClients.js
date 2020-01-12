@@ -39,7 +39,7 @@ module.exports = function(controller) {
           if (db.length > 0) {
             const { name, serialNumber, inService, tags } = db;
             console.log(d)
-            return { d, metaData: { name, serialNumber, inService, tags } };
+            return { ...d, metaData: { name, serialNumber, inService, tags } };
           }
           else {
             
