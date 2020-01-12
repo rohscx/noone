@@ -34,12 +34,12 @@ module.exports = function(controller) {
       const flatData = flattenArray(data);
       const dbLookup = await Promise.all(flatData.map(async (d) => {
         if (d.description) {
-          const db = await Promise.all(dataBaseSearch('name', d.description));
+          const db = await dataBaseSearch('name', d.description);
           console.log(db)
           if (db.length > 0) {
             const { name, serialNumber, inService, tags } = db;
             console.log(d)
-            return { ...d, metaData: { name, serialNumber, inService, tags } };
+            return { ...d, db };
           }
           else {
             
