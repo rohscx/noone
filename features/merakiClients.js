@@ -149,9 +149,9 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       } else {
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       }
     });
 
@@ -162,9 +162,9 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       } else {
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       }
       
     });
@@ -176,9 +176,9 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       } else {
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       }
       
     });
@@ -195,9 +195,9 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       } else {
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       }
       
     });
@@ -209,9 +209,9 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       } else {
-        await bot.reply(message, keyWordResult);
+        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
       }
     });
 
