@@ -17,7 +17,7 @@ module.exports = function(controller) {
     show network errors
     show vpn logs
     show dhcp error logs
-    show inventory []
+    show inventory [Daine]
     extract mac address from this: 34:17:eb:a2:dc:c6 a8:6b:ad:76:b0:19 48:bf:6b:db:35:bc
     extract mac address from this with cisco format: 34:17:eb:a2:dc:c6 a8:6b:ad:76:b0:19 48:bf:6b:db:35:bc
     extract ip address from this: 192.168.1.1 192.16.1.2, 10.77.11.6 
