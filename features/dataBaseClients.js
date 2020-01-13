@@ -22,10 +22,10 @@ module.exports = function(controller) {
       let result;
       if (keyWord){
         result = await getDataBaseInventoryItem('tags',keyWord)
-          .then((t) => objectKeyFilter(f,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
+          .then((t) => objectKeyFilter(t,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
       } else {
         result = await getDataBaseInventoryItem('tags','.*')
-          .then((t) => objectKeyFilter(f,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
+          .then((t) => objectKeyFilter(t,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
       }
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
