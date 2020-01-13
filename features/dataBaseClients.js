@@ -1,12 +1,15 @@
 const{
   ipFromString,
-  flattenArray
+  flattenArray,
+  objectKeyFilter,
 } = require('nodeutilz');
 const isDirectMessage = require('../lib/isDirectMessage.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
-const dataBaseSearch = require('../lib/dataBaseSearch.js');
 const objectCounter = require('../lib/objectCounter.js');
 
+
+// Custom bot libs
+const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 
 
 module.exports = function(controller) {
@@ -18,9 +21,11 @@ module.exports = function(controller) {
       const keyWord = message.text.match(new RegExp(/(?<=\[).+?(?=\])/));
       let result;
       if (keyWord){
-        result = await dataBaseSearch('tags',keyWord);
+        result = await getDataBaseInventoryItem('tags',keyWord)
+          .then((t) => objectKeyFilter(f,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
       } else {
-        result = await dataBaseSearch('tags','.*');
+        result = await getDataBaseInventoryItem('tags','.*')
+          .then((t) => objectKeyFilter(f,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]));
       }
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);

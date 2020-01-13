@@ -4,7 +4,7 @@ const{
 } = require('nodeutilz');
 const isDirectMessage = require('../lib/isDirectMessage.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
-const dataBaseSearch = require('../lib/dataBaseSearch.js');
+const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 const objectCounter = require('../lib/objectCounter.js');
 
 
@@ -34,7 +34,7 @@ module.exports = function(controller) {
       const flatData = flattenArray(data);
       const dbLookup = await Promise.all(flatData.map(async (d) => {
         if (d.description) {
-          const db = await dataBaseSearch('name', d.description);
+          const db = await getDataBaseInventoryItem('name', d.description);
           if (db.length > 0) {
             const { name, serialNumber, inService, tags } = db[0];
             return { ...d, metaData: { name, serialNumber, inService, tags } };
