@@ -22,10 +22,10 @@ module.exports = function(controller) {
       let result;
       if (keyWord){
         result = await getDataBaseInventoryItem('tags',keyWord)
-          .then((t) => Promise.all(t.map((d) => objectKeyFilter(d,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]))));
+          .then((t) => t.map(({name,serialNumber,assetNumber,notes,purchaseDateTime,inService,tags}) => ({name,inService,notes,tags,purchaseDateTime,assetNumber,serialNumber})));
       } else {
         result = await getDataBaseInventoryItem('tags','.*')
-          .then((t) => Promise.all(t.map((d) => objectKeyFilter(d,["name","serialNumber","assetNumber","notes","purchaseDateTime","inService","tags"]))));
+          .then((t) => t.map(({name,serialNumber,assetNumber,notes,purchaseDateTime,inService,tags}) => ({name,inService,notes,tags,purchaseDateTime,assetNumber,serialNumber})));
       }
       if (isDirectMessage(message.type,["direct_mention","mention"])) {
         await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
