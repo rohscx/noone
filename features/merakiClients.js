@@ -37,7 +37,7 @@ module.exports = function(controller) {
           const db = await getDataBaseInventoryItem('name', d.description);
           if (db.length > 0) {
             const { name, serialNumber, inService, tags } = db[0];
-            return { ...d, metaData: { name, serialNumber, inService, tags } };
+            return { ...d, metaData: { name, serialNumber} };
           }
           else {
             
