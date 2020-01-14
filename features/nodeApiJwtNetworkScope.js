@@ -14,7 +14,8 @@ module.exports = function(controller) {
       // Validate that a MAC address is present
       const isCidr = message.text.match(new RegExp(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).*\/[0-9]{0,1}[0-9]\b/));
       if (isCidr) {
-        const data = await getApiNetworkScope(apiUrl,apiJwtToken,message.text);
+        const cleanedCidr = isCidr[0].replace(new RegExp(/\s/,'g'),'');
+        const data = await getApiNetworkScope(apiUrl,apiJwtToken,cleanedCidr);
         const asString = JSON.stringify(data,null,'\t');
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
