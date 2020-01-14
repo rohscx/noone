@@ -24,9 +24,9 @@ module.exports = function(controller) {
       } else {
         if (isDirectMessage(message.type,["direct_mention","mention"])) {
           await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          await bot.reply(message, {error:'No valid MAC Addresses found'});
+          await bot.reply(message, JSON.stringify({error:'No valid MAC Addresses found'},null,'\n'));
         } else {
-          await bot.reply(message, {error:'No valid MAC Addresses found'});
+          await bot.reply(message, JSON.stringify({error:'No valid MAC Addresses found'},null,'\n'));
         }      
       }
     });
