@@ -46,7 +46,7 @@ module.exports = function(controller) {
         if (vpnErrors.length > 0) data.push(vpnErrors);
         if (dhcpErrors.length > 0) data.push(dhcpErrors);
         const flattend = flattenArray(data);
-        const asString = JSON.stringify(flattend,null,'\t');
+        const asString = JSON.stringify(data,null,'\t');
         await contextualReply(bot,message,asString);  
       });
 }
