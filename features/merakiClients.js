@@ -52,7 +52,7 @@ module.exports = function(controller) {
       }));
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(dbLookup,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
   
   controller.hears(
@@ -60,7 +60,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wiredClientCountOnline",{asString:true});
-      contextualReply(bot,message,count);
+      await contextualReply(bot,message,count);
     });
 
   controller.hears(
@@ -68,7 +68,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessClientCountOnline",{asString:true});
-      contextualReply(bot,message,count);
+      await contextualReply(bot,message,count);
     });
 
   controller.hears(
@@ -76,7 +76,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessGuestClientCountOnline",{asString:true});
-      contextualReply(bot,message,count);    
+      await contextualReply(bot,message,count);    
     });
     
   controller.hears(
@@ -84,7 +84,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"clientCountOnline",{asString:true});
-      contextualReply(bot,message,count);
+      await contextualReply(bot,message,count);
       
     });
 
@@ -133,7 +133,7 @@ module.exports = function(controller) {
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
   controller.hears(
@@ -142,7 +142,7 @@ module.exports = function(controller) {
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
   controller.hears(
@@ -151,7 +151,7 @@ module.exports = function(controller) {
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
   
   controller.hears(
@@ -164,8 +164,9 @@ module.exports = function(controller) {
         }).join('\n\n\n');
       };
       const keyWordResult = await keyWordSearch(data,"description",message.text);
+      const nameResult = await nameSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
   controller.hears(
@@ -173,9 +174,8 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const nameResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
   // controller.hears(

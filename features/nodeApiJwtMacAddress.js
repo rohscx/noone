@@ -17,9 +17,9 @@ module.exports = function(controller) {
       if (message.text.search(new RegExp(/(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2})/)) !==-1) {
         const data = await getApiMacAddressInString(apiUrl,apiJwtToken,message.text);
         const asString = JSON.stringify(data,null,'\t');
-        contextualReply(bot,message,asString);   
+        await contextualReply(bot,message,asString);   
       } else {
-        contextualReply(bot,message,asString);     
+        await contextualReply(bot,message,asString);     
       }
     });
 

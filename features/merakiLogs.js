@@ -14,7 +14,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey);
       const asString = JSON.stringify(data,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
     controller.hears(
@@ -22,6 +22,6 @@ module.exports = function(controller) {
       async function (bot, message) { 
         const data = await getMerakiLogsDhcp(merakiNetworkId,merakiApiKey);
         const asString = JSON.stringify(data,null,'\t');
-        contextualReply(bot,message,asString); 
+        await contextualReply(bot,message,asString); 
       });
 }

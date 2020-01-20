@@ -25,13 +25,13 @@ module.exports = function(controller) {
       const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
       const data = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);  
       const asString = JSON.stringify(data,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });
 
     controller.hears(
       ['show network errors', 'are there any network errors', 'are there network errors'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
-        contextualReply(bot,message,"Working on it...");
+        await contextualReply(bot,message,"Working on it...");
         const userDefinedIp = ipFromString(message.text,{onlyIp:true})[0];
         const data0 = await getMerakiDeviceLossLatency(merakiNetworkId,merakiApiKey,merakiGatwayRouter,publicTestIp,userDefinedIp);
         const data1 = await getMerakiLogsVpn(merakiNetworkId,merakiApiKey,10);
@@ -47,6 +47,6 @@ module.exports = function(controller) {
         if (dhcpErrors.length > 0) data.push(dhcpErrors);
         const flattend = flattenArray(data);
         const asString = JSON.stringify(flattend,null,'\t');
-        contextualReply(bot,message,asString);  
+        await contextualReply(bot,message,asString);  
       });
 }

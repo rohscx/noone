@@ -19,9 +19,9 @@ module.exports = function(controller) {
         const cleanedCidr = isCidr[0].replace(new RegExp(/\s/,'g'),'');
         const data = await getApiNetworkScope(apiUrl,apiJwtToken,cleanedCidr);
         const asString = JSON.stringify(data,null,'\t');
-        contextualReply(bot,message,asString); 
+        await contextualReply(bot,message,asString); 
       } else {
-        contextualReply(bot,message,asString);    
+        await contextualReply(bot,message,asString);    
       }
     });
 

@@ -14,7 +14,7 @@ module.exports = function(controller) {
           return info.user.name;
         });
         const basicResponse = response0(userData.user.profile.display_name_normalized)
-        contextualReply(bot,message,basicResponse);
+        await contextualReply(bot,message,basicResponse);
           
         });
 }

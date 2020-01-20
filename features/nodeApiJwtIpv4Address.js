@@ -17,9 +17,9 @@ module.exports = function(controller) {
       if (message.text.search(new RegExp(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/)) !==-1) {
         const data = await getApiIpv4AddressInString(apiUrl,apiJwtToken,message.text);
         const asString = JSON.stringify(data,null,'\t');
-        contextualReply(bot,message,asString);
+        await contextualReply(bot,message,asString);
       } else {
-        contextualReply(bot,message,asString);     
+        await contextualReply(bot,message,asString);     
       }
     });
 
