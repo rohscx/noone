@@ -164,7 +164,7 @@ module.exports = function(controller) {
           return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
         }).join('\n\n\n');
       };
-      const dbResult = await dataBaseSearch(data,"description",message.text)
+      const dbResult = await dataBaseSearch(data,"description",message.text);
       const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
@@ -173,9 +173,8 @@ module.exports = function(controller) {
     ['show network client','show network host', 'show network user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
-      const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const nameResult = await nameSearch(data,"description",message.text);
-      const asString = JSON.stringify([...keyWordResult,...nameResult],null,'\t');
+      const dbResult = await dataBaseSearch(data,"description",message.text);
+      const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
 
