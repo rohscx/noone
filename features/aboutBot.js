@@ -8,6 +8,6 @@ module.exports = function(controller) {
         async function (bot, message) { 
             const {version,dependencies} = pjson;
             const aboutResponse = `App Version ${version} BotKit Version ${dependencies.botkit.replace("^","")}`;
-            contextualReply(bot,message,aboutResponse);
+            await contextualReply(bot,message,aboutResponse).catch(console.error);
         });
 }

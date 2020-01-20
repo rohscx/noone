@@ -4,6 +4,7 @@ const{
 } = require('nodeutilz');
 const contextualReply = require('../lib/contextualReply.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
+const nameSearch = require('../lib/nameSearch.js');
 const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 const objectCounter = require('../lib/objectCounter.js');
 
@@ -172,6 +173,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
+      const nameResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
       contextualReply(bot,message,asString);
     });
