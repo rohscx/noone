@@ -142,6 +142,7 @@ module.exports = function(controller) {
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const asString = JSON.stringify(keyWordResult,null,'\t');
       contextualReply(bot,message,asString);
+    });
 
   controller.hears(
     ['show guest wireless client', 'show guest wifi host', 'show guest wifi user'], ['direct_message', 'direct_mention', 'mention'],
