@@ -5,6 +5,7 @@ const{
 const contextualReply = require('../lib/contextualReply.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
 const nameSearch = require('../lib/nameSearch.js');
+const dataBaseSearch = require('../lib/dataBaseSearch.js');
 const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 const objectCounter = require('../lib/objectCounter.js');
 
@@ -163,9 +164,8 @@ module.exports = function(controller) {
           return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
         }).join('\n\n\n');
       };
-      const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const nameResult = await nameSearch(data,"description",message.text);
-      const asString = JSON.stringify([...keyWordResult,...nameResult],null,'\t');
+      const dbResult = dataBaseSearch(data,"description",message.text)
+      const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
 
