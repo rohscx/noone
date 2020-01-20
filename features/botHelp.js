@@ -36,6 +36,6 @@ module.exports = function(controller) {
           return info.user.name;
         });
         const helpResponse = generalHelpText(userData.user.profile.display_name_normalized).trim();
-        await contextualReply(bot,message,aboutResponse).catch(console.error);      
+        await contextualReply(bot,message,helpResponse).catch(console.error);      
       });
 }

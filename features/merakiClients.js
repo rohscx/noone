@@ -165,7 +165,7 @@ module.exports = function(controller) {
       };
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const nameResult = await nameSearch(data,"description",message.text);
-      const asString = JSON.stringify(keyWordResult,null,'\t');
+      const asString = JSON.stringify(nameResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
 
