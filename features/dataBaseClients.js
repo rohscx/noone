@@ -3,9 +3,7 @@ const{
   flattenArray,
   objectKeyFilter,
 } = require('nodeutilz');
-const isDirectMessage = require('../lib/isDirectMessage.js');
-const keyWordSearch = require('../lib/keyWordSearch.js');
-const objectCounter = require('../lib/objectCounter.js');
+const contextualReply = require('../lib/contextualReply.js');
 
 
 // Custom bot libs
@@ -25,12 +23,8 @@ module.exports = function(controller) {
         result = await getDataBaseInventoryItem('tags','.*')
           .then((t) => t.map(({name,serialNumber,serviceTag,notes,purchaseDateTime,inService,tags}) => ({name,notes:notes.map(({note}) => note),tags,serviceTag})));
       }
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(result, null, '\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(result, null, '\t'));
-      }
+      const asString = JSON.stringify(result,null,'\t');
+      contextualReply(bot,message,asString);
     });  
   
   controller.hears(
@@ -45,11 +39,7 @@ module.exports = function(controller) {
         result = await getDataBaseInventoryItem('tags','.*')
           .then((t) => t.map(({name,serialNumber,serviceTag,notes,purchaseDateTime,inService,tags}) => ({name,inService,notes,tags,purchaseDateTime,serviceTag,serialNumber})));
       }
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(result, null, '\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(result, null, '\t'));
-      }
+      const asString = JSON.stringify(result,null,'\t');
+      contextualReply(bot,message,asString);
     });  
 }

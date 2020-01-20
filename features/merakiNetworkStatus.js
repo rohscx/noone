@@ -1,13 +1,16 @@
 const {
   ipFromString,
   flattenArray,
-} = require('nodeutilz')
+} = require('nodeutilz');
+const sampleDataSet =  require('../lib/sampleDataSet.js');
+const contextualReply = require('../lib/contextualReply.js');
+
 // Custom bot libs
 const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js');
 const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
 const getMerakiLogsDhcp = require('../lib/getMerakiLogsDhcp.js');
-const sampleDataSet =  require('../lib/sampleDataSet.js');
-const contextualReply = require('../lib/contextualReply.js')
+
+
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
 const merakiGatwayRouter = process.env.MERAKI_GATEWAY_SN;

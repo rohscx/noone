@@ -1,6 +1,8 @@
-// Custom bot libs
 const getApiMacAddressInString = require('../lib/getApiMacAddressInString.js');
-const isDirectMessage = require('../lib/isDirectMessage.js');
+const contextualReply = require('../lib/contextualReply.js');
+
+// Custom bot libs
+
 
 const apiUrl = process.env.NODEAPPJWT_API_URL;
 const apiJwtToken = process.env.NODEAPPJWT_API_AUTH_TOKEN;
@@ -15,19 +17,9 @@ module.exports = function(controller) {
       if (message.text.search(new RegExp(/(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9A-Fa-f]{4}[.:-]){2})/)) !==-1) {
         const data = await getApiMacAddressInString(apiUrl,apiJwtToken,message.text);
         const asString = JSON.stringify(data,null,'\t');
-        if (isDirectMessage(message.type,["direct_mention","mention"])) {
-          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          await bot.reply(message, asString);
-        } else {
-          await bot.reply(message, asString);
-        }   
+        contextualReply(bot,message,asString);   
       } else {
-        if (isDirectMessage(message.type,["direct_mention","mention"])) {
-          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          await bot.reply(message, JSON.stringify({error:'No valid MAC Addresses found'},null,'\n'));
-        } else {
-          await bot.reply(message, JSON.stringify({error:'No valid MAC Addresses found'},null,'\n'));
-        }      
+        contextualReply(bot,message,asString);     
       }
     });
 

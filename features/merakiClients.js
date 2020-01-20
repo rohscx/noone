@@ -2,22 +2,23 @@ const{
   ipFromString,
   flattenArray
 } = require('nodeutilz');
-const isDirectMessage = require('../lib/isDirectMessage.js');
+const contextualReply = require('../lib/contextualReply.js');
 const keyWordSearch = require('../lib/keyWordSearch.js');
 const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 const objectCounter = require('../lib/objectCounter.js');
 
 
 // Custom bot libs
-const getMerakiClients = require('../lib/getMerakiClients.js');
 const getMerakiClientsDetail = require('../lib/getMerakiClientsDetail.js');
 const getMerakiClient = require('../lib/getMerakiClient.js');
 const getMerakiClientsOnline = require('../lib/getMerakiClientsOnline.js');
 const getMerakiClientsOnlineWired = require('../lib/getMerakiClientsOnlineWired.js');
 const getMerakiClientsOnlineWireless = require('../lib/getMerakiClientsOnlineWireless.js');
 const getMerakiClientsOnlineWirelessGuest = require('../lib/getMerakiClientsOnlineWirelessGuest.js');
+const getMerakiClients = require('../lib/getMerakiClients.js');
 const getMerakiClientsWired = require('../lib/getMerakiClientsWired.js');
 const getMerakiClientsWireless = require('../lib/getMerakiClientsWireless.js');
+
 
 require('dotenv').config();
 
@@ -50,12 +51,7 @@ module.exports = function(controller) {
       }));
       //const data = await getMerakiClient(merakiNetworkId,merakiApiKey,message.text);
       const asString = JSON.stringify(dbLookup,null,'\t');
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, asString);   
-      } else {
-        await bot.reply(message, asString);
-      }
+      contextualReply(bot,message,asString);
     });
   
   controller.hears(
@@ -63,12 +59,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wiredClientCountOnline",{asString:true});
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, count);
-      } else {
-        await bot.reply(message, count);
-      }
+      contextualReply(bot,message,count);
     });
 
   controller.hears(
@@ -76,13 +67,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessClientCountOnline",{asString:true});
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, count);
-      } else {
-        await bot.reply(message, count);
-      }
-      
+      contextualReply(bot,message,count);
     });
 
   controller.hears(
@@ -90,13 +75,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"wirelessGuestClientCountOnline",{asString:true});
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, count);
-      } else {
-        await bot.reply(message, count);
-      }
-      
+      contextualReply(bot,message,count);    
     });
     
   controller.hears(
@@ -104,12 +83,7 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const count = objectCounter(data,"clientCountOnline",{asString:true});
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, count);
-      } else {
-        await bot.reply(message, count);
-      }
+      contextualReply(bot,message,count);
       
     });
 
@@ -157,12 +131,8 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      }
+      const asString = JSON.stringify(keyWordResult,null,'\t');
+      contextualReply(bot,message,asString);
     });
 
   controller.hears(
@@ -170,27 +140,16 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      }
-      
-    });
+      const asString = JSON.stringify(keyWordResult,null,'\t');
+      contextualReply(bot,message,asString);
 
   controller.hears(
     ['show guest wireless client', 'show guest wifi host', 'show guest wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      }
-      
+      const asString = JSON.stringify(keyWordResult,null,'\t');
+      contextualReply(bot,message,asString);
     });
   
   controller.hears(
@@ -203,13 +162,8 @@ module.exports = function(controller) {
         }).join('\n\n\n');
       };
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      }
-      
+      const asString = JSON.stringify(keyWordResult,null,'\t');
+      contextualReply(bot,message,asString);
     });
 
   controller.hears(
@@ -217,12 +171,8 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      if (isDirectMessage(message.type,["direct_mention","mention"])) {
-        await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      } else {
-        await bot.reply(message, JSON.stringify(keyWordResult,null,'\t'));
-      }
+      const asString = JSON.stringify(keyWordResult,null,'\t');
+      contextualReply(bot,message,asString);
     });
 
   // controller.hears(

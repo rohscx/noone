@@ -11,7 +11,7 @@ module.exports = function(controller) {
     show wired clients
     show wireless clients
     show guest wireless clients
-    show network clients
+    show network clients [Pat]
     show detailed network clients [Pat]
     show internet connection health
     show network errors
