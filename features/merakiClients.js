@@ -165,7 +165,7 @@ module.exports = function(controller) {
       };
       const keyWordResult = await keyWordSearch(data,"description",message.text);
       const nameResult = await nameSearch(data,"description",message.text);
-      const asString = JSON.stringify(nameResult,null,'\t');
+      const asString = JSON.stringify([...keyWordResult,...nameResult],null,'\t');
       await contextualReply(bot,message,asString);
     });
 
@@ -174,7 +174,8 @@ module.exports = function(controller) {
     async function (bot, message) { 
       const data = await getMerakiClientsOnline(merakiNetworkId,merakiApiKey);
       const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const asString = JSON.stringify(keyWordResult,null,'\t');
+      const nameResult = await nameSearch(data,"description",message.text);
+      const asString = JSON.stringify([...keyWordResult,...nameResult],null,'\t');
       await contextualReply(bot,message,asString);
     });
 
