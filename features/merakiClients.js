@@ -164,7 +164,7 @@ module.exports = function(controller) {
           return `${description}\t${ip}\t${mac}\t${lastSeen}\t${status}`
         }).join('\n\n\n');
       };
-      const dbResult = dataBaseSearch(data,"description",message.text)
+      const dbResult = await dataBaseSearch(data,"description",message.text)
       const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
