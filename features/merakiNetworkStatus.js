@@ -27,7 +27,7 @@ module.exports = function(controller) {
       const asString = JSON.stringify(data,null,'\t');
       await contextualReply(bot,message,asString);
     });
-
+    // this one is very buggy. duplicates response. Might be related to the delay in processessig
     controller.hears(
       ['show network errors', 'are there any network errors', 'are there network errors'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
