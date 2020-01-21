@@ -3,8 +3,6 @@ const{
   flattenArray
 } = require('nodeutilz');
 const contextualReply = require('../lib/contextualReply.js');
-const keyWordSearch = require('../lib/keyWordSearch.js');
-const nameSearch = require('../lib/nameSearch.js');
 const dataBaseSearch = require('../lib/dataBaseSearch.js');
 const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
 const objectCounter = require('../lib/objectCounter.js');

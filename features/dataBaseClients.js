@@ -4,7 +4,7 @@ const{
   objectKeyFilter,
 } = require('nodeutilz');
 const contextualReply = require('../lib/contextualReply.js');
-
+const dataBaseSearch = require('../lib/dataBaseSearch.js');
 
 // Custom bot libs
 const getDataBaseInventoryItem = require('../lib/getDataBaseInventoryItem.js');
@@ -24,7 +24,7 @@ module.exports = function(controller) {
           .then((t) => t.map(({name,serialNumber,serviceTag,notes,purchaseDateTime,inService,tags}) => ({name,notes:notes.map(({note}) => note),tags,serviceTag})));
       }
       const asString = JSON.stringify(result,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });  
   
   controller.hears(
@@ -40,6 +40,6 @@ module.exports = function(controller) {
           .then((t) => t.map(({name,serialNumber,serviceTag,notes,purchaseDateTime,inService,tags}) => ({name,inService,notes,tags,purchaseDateTime,serviceTag,serialNumber})));
       }
       const asString = JSON.stringify(result,null,'\t');
-      contextualReply(bot,message,asString);
+      await contextualReply(bot,message,asString);
     });  
 }
