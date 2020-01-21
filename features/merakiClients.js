@@ -132,8 +132,8 @@ module.exports = function(controller) {
     ['show wired client', 'show wired network client'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWired(merakiNetworkId,merakiApiKey);
-      const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const asString = JSON.stringify(keyWordResult,null,'\t');
+      const dbResult = await dataBaseSearch(data,"description",message.text);
+      const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
 
@@ -141,8 +141,8 @@ module.exports = function(controller) {
     ['show wireless client', 'show wireless host', 'show wireless user', 'show wifi client', 'show wifi host', 'show wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWireless(merakiNetworkId,merakiApiKey);
-      const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const asString = JSON.stringify(keyWordResult,null,'\t');
+      const dbResult = await dataBaseSearch(data,"description",message.text);
+      const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
 
@@ -150,8 +150,8 @@ module.exports = function(controller) {
     ['show guest wireless client', 'show guest wifi host', 'show guest wifi user'], ['direct_message', 'direct_mention', 'mention'],
     async function (bot, message) { 
       const data = await getMerakiClientsOnlineWirelessGuest(merakiNetworkId,merakiApiKey);
-      const keyWordResult = await keyWordSearch(data,"description",message.text);
-      const asString = JSON.stringify(keyWordResult,null,'\t');
+      const dbResult = await dataBaseSearch(data,"description",message.text);
+      const asString = JSON.stringify(dbResult,null,'\t');
       await contextualReply(bot,message,asString);
     });
   
