@@ -1,4 +1,4 @@
-const isDirectMessage = require('../lib/isDirectMessage.js');
+const contextualReply = require('../lib/contextualReply.js');
 
 module.exports = function(controller) {
   const generalHelpText = (data) => {
@@ -11,7 +11,7 @@ module.exports = function(controller) {
     show wired clients
     show wireless clients
     show guest wireless clients
-    show network clients
+    show network clients [Pat]
     show detailed network clients [Pat]
     show internet connection health
     show network errors
@@ -35,11 +35,7 @@ module.exports = function(controller) {
           //check if it's the right user using info.user.name or info.user.id
           return info.user.name;
         });
-          if (isDirectMessage(message.type,["direct_mention","mention"])) {
-              await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-              await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
-            } else {
-              await bot.reply(message, generalHelpText(userData.user.profile.display_name_normalized).trim()) 
-            }           
+        const helpResponse = generalHelpText(userData.user.profile.display_name_normalized).trim();
+        await contextualReply(bot,message,helpResponse).catch(console.error);      
       });
 }

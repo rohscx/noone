@@ -1,6 +1,8 @@
-// Custom bot libs
 const getApiNetworkScope = require('../lib/getApiNetworkScope.js');
-const isDirectMessage = require('../lib/isDirectMessage.js');
+const contextualReply = require('../lib/contextualReply.js');
+
+// Custom bot libs
+
 
 const apiUrl = process.env.NODEAPPJWT_API_URL;
 const apiJwtToken = process.env.NODEAPPJWT_API_AUTH_TOKEN;
@@ -17,19 +19,9 @@ module.exports = function(controller) {
         const cleanedCidr = isCidr[0].replace(new RegExp(/\s/,'g'),'');
         const data = await getApiNetworkScope(apiUrl,apiJwtToken,cleanedCidr);
         const asString = JSON.stringify(data,null,'\t');
-        if (isDirectMessage(message.type,["direct_mention","mention"])) {
-          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          await bot.reply(message, asString);
-        } else {
-          await bot.reply(message, asString);
-        }   
+        await contextualReply(bot,message,asString); 
       } else {
-        if (isDirectMessage(message.type,["direct_mention","mention"])) {
-          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          await bot.reply(message, JSON.stringify({error:'No valid iPv4 Cidr Addresses found'},null,'\t'));
-        } else {
-          await bot.reply(message, JSON.stringify({error:'No valid iPv4 Cidr Addresses found'},null,'\t'));
-        }      
+        await contextualReply(bot,message,asString);    
       }
     });
 

@@ -1,4 +1,4 @@
-const isDirectMessage = require('../lib/isDirectMessage.js');
+const contextualReply = require('../lib/contextualReply.js');
 
 module.exports = function(controller) {
   const response0 = (data) => {
@@ -13,12 +13,8 @@ module.exports = function(controller) {
           //check if it's the right user using info.user.name or info.user.id
           return info.user.name;
         });
-        if (isDirectMessage(message.type,["direct_mention","mention"])) {
-          await bot.startConversationInThread(message.channel, message.user, message.incoming_message.channelData.ts);
-          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
-        } else {
-          return  bot.reply(message, response0(userData.user.profile.display_name_normalized));
-        }    
+        const basicResponse = response0(userData.user.profile.display_name_normalized)
+        await contextualReply(bot,message,basicResponse);
           
         });
 }
