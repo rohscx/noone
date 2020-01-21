@@ -13,8 +13,8 @@
     "botkit": "^4.6.0",
     "botkit-plugin-cms": "^1.0.3",
     "dotenv": "^7.0.0",
-    "mongoose": "^5.8.7",
-    "nodeutilz": "^1.2.1"
+    "mongoose": "^5.8.9",
+    "nodeutilz": "^1.2.2"
   },
   "engines": {
     "node": "10.x.x"
