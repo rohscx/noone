@@ -19,7 +19,7 @@ module.exports = function(controller) {
           //check if it's the right user using info.user.name or info.user.id
           return info.user.name;
         });
-        const helpResponse = JSON.stringify(generalHelpText(userData.user.profile.display_name_normalized));
+        const helpResponse = JSON.stringify(generalHelpText(userData.user.profile.display_name_normalized),null,'\t');
         await contextualReply(bot,message,helpResponse).catch(console.error);      
       });
 }
