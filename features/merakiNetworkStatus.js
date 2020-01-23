@@ -9,10 +9,12 @@ const contextualReply = require('../lib/contextualReply.js');
 const getMerakiDeviceLossLatency = require('../lib/getMerakiDeviceLossLatency.js');
 const getMerakiLogsVpn = require('../lib/getMerakiLogsVpn.js');
 const getMerakiLogsDhcp = require('../lib/getMerakiLogsDhcp.js');
+const getMerakiDeviceStatuses = require('../lib/getMerakiDeviceStatuses.js');
 
 
 const merakiApiKey = process.env.MERAKI_API_KEY;
 const merakiNetworkId = process.env.MERAKI_NETWORK_ID;
+const merakiOrganizationId = process.env.MERAKI_ORGANIZATION_ID;
 const merakiGatwayRouter = process.env.MERAKI_GATEWAY_SN;
 const publicTestIp = process.env.MERAKI_INTERNET_TEST_IP;
 
@@ -48,5 +50,12 @@ module.exports = function(controller) {
         const flattend = flattenArray(data);
         const asString = JSON.stringify(flattend,null,'\t');
         await contextualReply(bot,message,asString);  
+      });
+    controller.hears(
+      ['show meraki status'], ['direct_message', 'direct_mention', 'mention'],
+      async function (bot, message) { 
+        const data = await getMerakiDeviceStatuses(merakiNetworkId,merakiApiKey,merakiOrganizationId);  
+        const asString = JSON.stringify(data,null,'\t');
+        await contextualReply(bot,message,asString);
       });
 }
