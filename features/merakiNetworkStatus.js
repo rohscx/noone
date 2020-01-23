@@ -56,7 +56,7 @@ module.exports = function(controller) {
       ['show meraki status'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiDeviceStatuses(merakiNetworkId,merakiApiKey,merakiOrganizationId);  
-        const fileredData = await objectKeyFilter(data,[name,serial,status]);
+        const fileredData = await objectKeyFilter(data,["name","serial","status"]);
         const asString = JSON.stringify(fileredData,null,'\t');
         await contextualReply(bot,message,asString);
       });
