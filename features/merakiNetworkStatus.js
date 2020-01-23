@@ -1,6 +1,7 @@
 const {
   ipFromString,
   flattenArray,
+  objectKeyFilter,
 } = require('nodeutilz');
 const sampleDataSet =  require('../lib/sampleDataSet.js');
 const contextualReply = require('../lib/contextualReply.js');
@@ -55,7 +56,7 @@ module.exports = function(controller) {
       ['show meraki status'], ['direct_message', 'direct_mention', 'mention'],
       async function (bot, message) { 
         const data = await getMerakiDeviceStatuses(merakiNetworkId,merakiApiKey,merakiOrganizationId);  
-        const asString = JSON.stringify(data,null,'\t');
+        const asString = JSON.stringify(objectKeyFilter(data,[name,serial,status]),null,'\t');
         await contextualReply(bot,message,asString);
       });
 }
